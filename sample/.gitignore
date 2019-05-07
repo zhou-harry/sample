@@ -29,3 +29,5 @@ target/
 *.target/
 logs/
 
+
+config-server/src/main/resources/configs
