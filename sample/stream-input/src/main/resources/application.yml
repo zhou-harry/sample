@@ -1,0 +1,25 @@
+server:
+  port: 4041
+spring:
+  application:
+    name: harry-stream-input
+  #如果消息中间件是Kafka
+  kafka:
+    bootstrap-servers: 192.168.234.135:9092
+  #如果消息中间件是Rabbit，此处Rabbit health check
+  rabbitmq:
+    addresses: 192.168.234.135:5672
+  cloud:
+    stream:
+      bindings:
+        harry_default_input:
+          destination: harry_default
+          group: harry_group_default
+#          binder: rabbit_server
+#      binders:
+#        rabbit_server:
+#          type: rabbit
+#          environment:
+#            spring:
+#              rabbitmq:
+#                addresses: 192.168.234.135:5672
