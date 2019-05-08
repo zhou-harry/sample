@@ -30,4 +30,4 @@ target/
 logs/
 
 
-config-server/src/main/resources/configs
+#config-server/src/main/resources/configs

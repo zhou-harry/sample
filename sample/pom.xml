@@ -21,6 +21,7 @@
         <module>common-api</module>
         <module>stream-output</module>
         <module>stream-input</module>
+        <module>bus-server</module>
     </modules>
 
     <packaging>pom</packaging>
