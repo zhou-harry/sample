@@ -15,7 +15,7 @@ import java.util.List;
  * 实际情况最好使用组合的方式，而不是继承
  */
 @RestController
-public class UserServiceClientController implements UserApi {
+public class UserServiceClientController{
 
     @Autowired
     private UserApi userService;
