@@ -1,16 +1,16 @@
-#服务组件
-##Eureka注册中心：`harry-eureka-server:（9091/9092）`
-##外部化配置服务器：`harry-config-server:7070`
-##外部化配置客户端：`harry-config-client:6060`
-##服务网关：`harry-zuul-server:10000`
-##用户服务提供者：`harry-user-server:8080`
-##用户服务客户端：`harry-user-client:8081`
-##邮件服务器：`harry-mail-server:5050`
-##消息驱动发送服务器：`harry-stream-output:4040`
-##消息驱动接收服务器：`harry-stream-input:4041`
-#公共组件
-##服务调用组件：`feign-api`
-##数据库连接组件：`database-api`
+# 服务组件
+## Eureka注册中心：`harry-eureka-server:（9091/9092）`
+## 外部化配置服务器：`harry-config-server:7070`
+## 外部化配置客户端：`harry-config-client:6060`
+## 服务网关：`harry-zuul-server:10000`
+## 用户服务提供者：`harry-user-server:8080`
+## 用户服务客户端：`harry-user-client:8081`
+## 邮件服务器：`harry-mail-server:5050`
+## 消息驱动发送服务器：`harry-stream-output:4040`
+## 消息驱动接收服务器：`harry-stream-input:4041`
+# 公共组件
+## 服务调用组件：`feign-api`
+## 数据库连接组件：`database-api`
 #### 服务端配置
 1. 依赖 Database API
     ```sh
