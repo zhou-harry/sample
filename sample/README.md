@@ -8,6 +8,7 @@
 ## 邮件服务器：`harry-mail-server:5050`
 ## 消息驱动发送服务器：`harry-stream-output:4040`
 ## 消息驱动接收服务器：`harry-stream-input:4041`
+## 消息总线服务器：`harry-bus-server:10001`
 # 公共组件
 ## 服务调用组件：`feign-api`
 ## 数据库连接组件：`database-api`
