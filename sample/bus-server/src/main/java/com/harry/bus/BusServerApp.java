@@ -3,7 +3,6 @@ package com.harry.bus;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
 /**
  * @author harry
@@ -13,7 +12,6 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
  * @date 2019/5/8 21:45
  */
 @SpringBootApplication
-@EnableHystrix //激活服务短路
 @EnableDiscoveryClient //激活服务发现客户端
 public class BusServerApp {
 
