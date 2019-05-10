@@ -71,7 +71,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         if (action) {
             try {
                 validate(new ServletWebRequest(request));
-                //为什么要用自定义异常，因为这是还是属于认证的过滤链中
+                //为什么要用自定义异常，因为这里还是属于认证的过滤链中
             } catch (ValidateCodeException e) {
                 authenticationFailureHandler.onAuthenticationFailure(request, response, e);
                 return;
