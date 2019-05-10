@@ -1,5 +1,6 @@
 package com.harry.bus.event;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.cloud.bus.event.RemoteApplicationEvent;
  * @description: 自定义实现 RemoteApplicationEvent
  * @date 2019/5/9 16:49
  */
+@JsonIgnoreProperties("")
 public class MyRemoteApplicationEvent extends RemoteApplicationEvent {
 
 
