@@ -42,7 +42,7 @@ public class BaseSecurityController {
             //是否以.html结尾，如果是则跳转到登录页面
             if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
                 //这个url，用到**Properties 配置文件类来做灵活性配置
-                redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getSigninPageUrl());
+                redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getSignInUrl());
             }
         }
         return new BaseSecurityResponse("访问的服务需要身份认证，请引导用户到登录页");

@@ -13,7 +13,8 @@ import com.harry.security.constant.SecurityConstants;
 public class BrowserProperties {
 
     //标准的登录页面，如果其他项目没有配置则使用默认的登录配置
-    private String signinPageUrl = SecurityConstants.DEFAULT_SIGNIN_PAGE_URL;
+    private String signInUrl = SecurityConstants.DEFAULT_SIGNIN_PAGE_URL;
+    private String signUpUrl = SecurityConstants.DEFAULT_SIGNUP_PAGE_URL;
 
     private AuthenticationResponseTypeEnum loginType = AuthenticationResponseTypeEnum.JSON;
 
@@ -29,14 +30,6 @@ public class BrowserProperties {
 
     public void setRememberMeSeconds(int rememberMeSeconds) {
         this.rememberMeSeconds = rememberMeSeconds;
-    }
-
-    public String getSigninPageUrl() {
-        return signinPageUrl;
-    }
-
-    public void setSigninPageUrl(String signinPageUrl) {
-        this.signinPageUrl = signinPageUrl;
     }
 
     public AuthenticationResponseTypeEnum getLoginType() {
@@ -61,5 +54,21 @@ public class BrowserProperties {
 
     public void setSigninProcessUrlMobile(String signinProcessUrlMobile) {
         this.signinProcessUrlMobile = signinProcessUrlMobile;
+    }
+
+    public String getSignInUrl() {
+        return signInUrl;
+    }
+
+    public void setSignInUrl(String signInUrl) {
+        this.signInUrl = signInUrl;
+    }
+
+    public String getSignUpUrl() {
+        return signUpUrl;
+    }
+
+    public void setSignUpUrl(String signUpUrl) {
+        this.signUpUrl = signUpUrl;
     }
 }

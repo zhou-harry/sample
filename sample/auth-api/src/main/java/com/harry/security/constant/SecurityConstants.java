@@ -6,6 +6,10 @@ public class SecurityConstants {
      * 默认登录页面url
      */
     public static final String DEFAULT_SIGNIN_PAGE_URL = "/loginForm.html";
+    /**
+     * 默认注册页面url
+     */
+    public static final String DEFAULT_SIGNUP_PAGE_URL = "/signUp.html";
 
     /**
      * 默认记住账号密码时间
@@ -47,5 +51,13 @@ public class SecurityConstants {
      * 验证短信验证码时，http请求中默认的携带短信验证码信息的参数的名称
      */
     public static final String DEFAULT_PARAMETER_NAME_CODE_SMS = "smsCode";
+    /**
+     * 默认的Social UserConnection表名的前缀
+     */
+    public static final String DEFAULT_SOCIAL_USER_CONNECTION_PREFIX = "t_";
+    /**
+     * SocialAuthenticationFilter默认的处理路径
+     */
+    public static final String DEFAULT_FILTER_PROCESSES_URL="/auth";
 
 }

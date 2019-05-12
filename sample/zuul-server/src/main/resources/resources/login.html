@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>网关登录</title>
@@ -40,18 +41,14 @@
     <table>
         <tr>
             <td>用户名：</td>
-            <td><input type="text" name="mobile" value="user"></td>
+            <td><input type="text" id="mobile" name="mobile" value="user"></td>
         </tr>
         <tr>
             <td>验证码：</td>
             <td>
                 <input type="text" name="smsCode" value="">
-                <a href="/verifyCode/sms?mobile=17718376207">发送验证码</a>
+                <a href="javascript:applySmsCode();">发送验证码</a>
             </td>
-        </tr>
-        <tr>
-            <td>记住我：</td>
-            <td><input type="checkbox" name="remember-me" value="true"></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -61,5 +58,24 @@
     </table>
 </form>
 
+<h2>短信登录</h2>
+<a href="/auth/qq">QQ登录</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="/auth/weixin">微信登录</a>
+
+
+
+
+<script type="text/javascript">
+    function applySmsCode() {
+        if ($("#mobile").val()) {
+            $.get("/verifyCode/sms?mobile=" + $("#mobile").val(), function() {
+                alert("成功发送手机验证码短信，请注意接收");
+            });
+        } else {
+            alert("请先填写手机号");
+        }
+    }
+</script>
 </body>
 </html>

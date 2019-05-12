@@ -1,4 +1,4 @@
-package com.harry.security.config;
+package com.harry.security.authentication.mobile;
 
 import com.harry.security.authentication.mobile.SmsCodeAuthenticationFilter;
 import com.harry.security.authentication.mobile.SmsCodeAuthenticationProvider;
@@ -46,7 +46,8 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
 
         //配置provider
         SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider(userDetailsService);
-        http.authenticationProvider(smsCodeAuthenticationProvider)
+        http
+                .authenticationProvider(smsCodeAuthenticationProvider)
                 .addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 

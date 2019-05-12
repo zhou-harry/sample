@@ -46,9 +46,10 @@
         <druid>1.1.10</druid>
         <pagehelper>1.2.3</pagehelper>
         <log4j>1.2.17</log4j>
-        <spring-social-web>1.1.6.RELEASE</spring-social-web>
+        <spring-social>1.1.6.RELEASE</spring-social>
         <janino>3.0.8</janino>
         <mail>5.1.6</mail>
+        <commons-collections>3.2.2</commons-collections>
     </properties>
 
     <dependencyManagement>
@@ -136,6 +137,11 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons-collections}</version>
         </dependency>
 
     </dependencies>

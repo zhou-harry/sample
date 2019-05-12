@@ -14,10 +14,6 @@
     <description>权限认证API</description>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -28,18 +24,33 @@
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>-->
+        </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.social/spring-social-web -->
+        <!-- social -->
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-config</artifactId>
+            <version>${spring-social}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-core</artifactId>
+            <version>${spring-social}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-security</artifactId>
+            <version>${spring-social}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-web</artifactId>
-            <version>${spring-social-web}</version>
+            <version>${spring-social}</version>
         </dependency>
         <!-- 依赖 Database API -->
         <dependency>

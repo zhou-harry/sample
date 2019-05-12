@@ -105,7 +105,7 @@
 ```sh
  ###权限控制
  #权限登录地址
- harry.security.browser.loginPage=/login.html
+ harry.security.browser.signInUrl=/login.html
  #权限登录方式
  harry.security.browser.loginType=REDIRECT
  ##验证码
