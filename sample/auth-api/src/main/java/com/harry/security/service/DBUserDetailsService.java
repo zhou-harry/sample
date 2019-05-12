@@ -18,6 +18,10 @@ public class DBUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        //根据手机号查询数据库用户信息
+
+        //将查询出的的用户信息组装并返回
         User user = new User(
                 username,
                 passwordEncoder.encode("harry"),

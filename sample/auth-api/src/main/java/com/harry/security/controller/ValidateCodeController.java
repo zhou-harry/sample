@@ -1,42 +1,57 @@
 package com.harry.security.controller;
 
-import com.harry.security.properties.SecurityProperties;
-import com.harry.security.util.ImageCode;
-import com.harry.security.util.SecurityCode;
-import org.springframework.social.connect.web.HttpSessionSessionStrategy;
-import org.springframework.social.connect.web.SessionStrategy;
+import com.harry.security.validate.code.image.ImageCodeProcessor;
+import com.harry.security.validate.code.sms.SmsCodeProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.harry.security.constant.SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX;
+
+/**
+ * 验证码Controller
+ */
 @RestController
 public class ValidateCodeController {
 
-    //操作Session的类
-    private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+    //图片验证码生成器
+    @Autowired
+    private ImageCodeProcessor imageCodeProcessor;
+    //短信验证码生成器
+    @Autowired
+    private SmsCodeProcessor smsCodeProcessor;
 
-    private final SecurityProperties securityProperties;
 
-    public ValidateCodeController(SecurityProperties securityProperties) {
-        this.securityProperties = securityProperties;
+    /**
+     * 图片验证码
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @GetMapping(DEFAULT_VALIDATE_CODE_URL_PREFIX + "/image")
+    public void createCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        imageCodeProcessor.process(new ServletWebRequest(request, response));
+
     }
 
-    @GetMapping("/code/image")
-    public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //1.根据随机数生成数字
-        SecurityProperties.ValidateCodeProperties.ImageCodeProperties image = securityProperties.getValidateCode().getImage();
-        ImageCode imageCode = ImageCode.build(new ServletWebRequest(request),image);
-        System.out.println("验证码:"+imageCode.getCode());
-        //2.将随机数存到Session中
-        //把请求传递进ServletWebRequest,
-        sessionStrategy.setAttribute(new ServletWebRequest(request), SecurityCode.SESSION_KEY, imageCode);
-        //3.将生成的图片写到接口的响应中
-        ImageIO.write(imageCode.getImage(), "JPEG", response.getOutputStream());
+    /**
+     * 短信验证码
+     *
+     * @param request
+     * @param response
+     * @throws Exception
+     */
+    @GetMapping(DEFAULT_VALIDATE_CODE_URL_PREFIX + "/sms")
+    public void createSmsCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        smsCodeProcessor.process(new ServletWebRequest(request, response));
 
     }
 

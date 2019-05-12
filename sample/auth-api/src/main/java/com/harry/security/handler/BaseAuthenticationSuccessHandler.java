@@ -1,7 +1,7 @@
 package com.harry.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.harry.security.properties.LoginType;
+import com.harry.security.constant.AuthenticationResponseTypeEnum;
 import com.harry.security.properties.SecurityProperties;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -23,7 +23,7 @@ public class BaseAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())){
+        if (AuthenticationResponseTypeEnum.JSON.equals(securityProperties.getBrowser().getLoginType())){
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(objectMapper.writeValueAsString(authentication));
         }else {

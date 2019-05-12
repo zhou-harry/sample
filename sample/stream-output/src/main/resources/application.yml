@@ -5,7 +5,7 @@ spring:
     name: harry-stream-output
   #Rabbit health check
   rabbitmq:
-    addresses: 192.168.234.135:5672
+    addresses: 192.168.234.134:5672
   cloud:
     stream:
       bindings:

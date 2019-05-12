@@ -1,119 +1,86 @@
 package com.harry.security.util;
 
-import com.harry.security.properties.SecurityProperties;
-import org.springframework.web.bind.ServletRequestUtils;
-import org.springframework.web.context.request.ServletWebRequest;
-
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Random;
 
 /**
  * 图片验证码
  */
-public class ImageCode {
+public class VerifyCodeUtil {
 
     //使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
     public static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
     private static Random random = new Random();
 
-    private BufferedImage image;//展示的图片
-    private String code;//生成的随机数，Session
-    private LocalDateTime expireTime;//过期时间
+    private String text;//生成的随机数，Session
+    private int w, h, verifySize;//验证码宽，高，验证码长度
 
+    /**
+     * 获取验证码
+     *
+     * @return
+     */
+    public String getVerifyCode() {
+        return this.text;
+    }
+
+    /**
+     * 获取验证码图片
+     * @return
+     */
     public BufferedImage getImage() {
-        return image;
+        return this.getImage(null);
     }
 
-    public void setImage(BufferedImage image) {
-        this.image = image;
+    /**
+     * 获取验证码图片
+     * @param source
+     * @return
+     */
+    public BufferedImage getImage(String source) {
+        this.generateVerifyCode(source);
+        return outputImage(this.text);
     }
 
-    public String getCode() {
-        return code;
+    public VerifyCodeUtil() {
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public LocalDateTime getExpireTime() {
-        return expireTime;
-    }
-
-    public void setExpireTime(LocalDateTime expireTime) {
-        this.expireTime = expireTime;
-    }
-
-    //是否过期
-    public boolean isExpried() {
-        return LocalDateTime.now().isAfter(expireTime);
-    }
-
-    public ImageCode(BufferedImage image, String code, LocalDateTime expireTime) {
-        this.image = image;
-        this.code = code;
-        this.expireTime = expireTime;
-    }
-
-    //多少秒过期（60秒）
-    public ImageCode(BufferedImage image, String code, int expireIn) {
-        this.image = image;
-        this.code = code;
-        this.expireTime = LocalDateTime.now().plusSeconds(expireIn);
-    }
-
-    //生成图片
-    public static ImageCode build(ServletWebRequest request, SecurityProperties.ValidateCodeProperties.ImageCodeProperties imageCodeProperties) {
-        //宽和高需要从request来取，如果没有传递，再从配置的值来取
-        //验证码宽和高
-        int width = ServletRequestUtils.getIntParameter(request.getRequest(), "width", imageCodeProperties.getWidth());
-        int height = ServletRequestUtils.getIntParameter(request.getRequest(), "height", imageCodeProperties.getHeight());
-        //验证码
-        String verifyCode = generateVerifyCode(imageCodeProperties.getLength(), null);
-        //过期时间
-        return new ImageCode(
-                outputImage(width, height, verifyCode),
-                verifyCode,
-                imageCodeProperties.getExpireIn()
-        );
+    public VerifyCodeUtil(int w, int h, int verifySize) {
+        this.w = w;
+        this.h = h;
+        this.verifySize = verifySize;
     }
 
     /**
      * 使用指定源生成验证码
-     *
-     * @param verifySize 验证码长度
-     * @param sources    验证码字符源
      * @return
      */
-    public static String generateVerifyCode(int verifySize, String sources) {
-        if (sources == null || sources.length() == 0) {
-            sources = VERIFY_CODES;
+    private void generateVerifyCode(String source) {
+        if (source == null || source.length() == 0) {
+            source = VERIFY_CODES;
         }
-        int codesLen = sources.length();
+        int codesLen = source.length();
         Random rand = new Random(System.currentTimeMillis());
         StringBuilder verifyCode = new StringBuilder(verifySize);
         for (int i = 0; i < verifySize; i++) {
             //随机在验证字符中取一个值
-            verifyCode.append(sources.charAt(rand.nextInt(codesLen - 1)));
+            verifyCode.append(source.charAt(rand.nextInt(codesLen - 1)));
         }
-        return verifyCode.toString();//得到四位数的验证码
+        this.text = verifyCode.toString();
     }
 
     /**
      * 输出指定验证码图片流
      *
-     * @param w    宽
-     * @param h    高
      * @param code 验证码
      * @return 预定义图像类型之一的 BufferedImage。
      * @throws IOException
      */
-    public static BufferedImage outputImage(int w, int h, String code) {
+    public BufferedImage outputImage(String code) {
         int verifySize = code.length();
         BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         Random rand = new Random();

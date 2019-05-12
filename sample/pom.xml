@@ -132,6 +132,11 @@
             <version>${janino}</version>
         </dependency>
         <!-- Logging end -->
+        <!-- 工具包 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
 
     </dependencies>
 
