@@ -24,7 +24,7 @@ import javax.sql.DataSource;
  * @author harry
  * @version 1.0
  * @title: SecurityCoreConfig
- * @description: TODO
+ * @description: 权限认证核心配置
  * @date 2019/5/11 17:52
  */
 @ComponentScan({"com.harry.security"})
