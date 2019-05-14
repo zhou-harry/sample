@@ -5,7 +5,7 @@ public class SecurityConstants {
     /**
      * 默认登录页面url
      */
-    public static final String DEFAULT_SIGNIN_PAGE_URL = "/loginForm.html";
+    public static final String DEFAULT_SIGNIN_PAGE_URL = "/signIn.html";
     /**
      * 默认注册页面url
      */

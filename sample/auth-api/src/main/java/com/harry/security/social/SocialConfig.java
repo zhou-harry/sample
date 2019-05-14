@@ -21,7 +21,7 @@ import javax.sql.DataSource;
  * @author harry
  * @version 1.0
  * @title: SocialConfig
- * @description: TODO
+ * @description: 第三方接入配置入口
  * @date 2019/5/12 15:57
  */
 @Configuration

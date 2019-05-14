@@ -27,7 +27,14 @@ import java.util.Set;
 
 import static com.harry.security.constant.SecurityConstants.SESSION_KEY_IMAGE;
 
-//实现InitializingBean接口的目的是：其他的参数都组装完毕之后，初始化urls的值
+/**
+ * 验证码配置过滤器(适配图形验证码，短信验证码)
+ * @author harry
+ * @version 1.0
+ * @title: ValidateCodeFilter
+ * @description: 实现InitializingBean接口的目的是：其他的参数都组装完毕之后，初始化urls的值
+ * @date 2019/5/12 0:32
+ */
 public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
 

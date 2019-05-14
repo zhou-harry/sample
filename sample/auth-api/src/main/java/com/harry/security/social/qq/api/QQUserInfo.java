@@ -1,5 +1,7 @@
 package com.harry.security.social.qq.api;
 
+import java.io.Serializable;
+
 /**
  * @author harry
  * @version 1.0
@@ -7,7 +9,7 @@ package com.harry.security.social.qq.api;
  * @description: TODO
  * @date 2019/5/12 15:33
  */
-public class QQUserInfo {
+public class QQUserInfo implements Serializable {
 
     /**
      * 	返回码
@@ -38,6 +40,10 @@ public class QQUserInfo {
      */
     private String year;
     /**
+     * 星座
+     */
+    private String constellation;
+    /**
      * 	用户在QQ空间的昵称。
      */
     private String nickname;
@@ -53,6 +59,11 @@ public class QQUserInfo {
      * 	大小为100×100像素的QQ空间头像URL。
      */
     private String figureurl_2;
+
+    /**
+     *
+     */
+    private String figureurl_qq;
     /**
      * 	大小为40×40像素的QQ头像URL。
      */
@@ -61,6 +72,11 @@ public class QQUserInfo {
      * 	大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100×100的头像，但40×40像素则是一定会有。
      */
     private String figureurl_qq_2;
+
+    /**
+     *图像类型
+     */
+    private String figureurl_type;
     /**
      * 	性别。 如果获取不到则默认返回”男”
      */
@@ -140,6 +156,14 @@ public class QQUserInfo {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public String getConstellation() {
+        return constellation;
+    }
+
+    public void setConstellation(String constellation) {
+        this.constellation = constellation;
     }
 
     public String getNickname() {
@@ -236,5 +260,49 @@ public class QQUserInfo {
 
     public void setIs_yellow_year_vip(String is_yellow_year_vip) {
         this.is_yellow_year_vip = is_yellow_year_vip;
+    }
+
+    public String getFigureurl_qq() {
+        return figureurl_qq;
+    }
+
+    public void setFigureurl_qq(String figureurl_qq) {
+        this.figureurl_qq = figureurl_qq;
+    }
+
+    public String getFigureurl_type() {
+        return figureurl_type;
+    }
+
+    public void setFigureurl_type(String figureurl_type) {
+        this.figureurl_type = figureurl_type;
+    }
+
+    @Override
+    public String toString() {
+        return "QQUserInfo{" +
+                "ret='" + ret + '\'' +
+                ", msg='" + msg + '\'' +
+                ", openId='" + openId + '\'' +
+                ", is_lost='" + is_lost + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", year='" + year + '\'' +
+                ", constellation='" + constellation + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", figureurl='" + figureurl + '\'' +
+                ", figureurl_1='" + figureurl_1 + '\'' +
+                ", figureurl_2='" + figureurl_2 + '\'' +
+                ", figureurl_qq='" + figureurl_qq + '\'' +
+                ", figureurl_qq_1='" + figureurl_qq_1 + '\'' +
+                ", figureurl_qq_2='" + figureurl_qq_2 + '\'' +
+                ", figureurl_type='" + figureurl_type + '\'' +
+                ", gender='" + gender + '\'' +
+                ", is_yellow_vip='" + is_yellow_vip + '\'' +
+                ", vip='" + vip + '\'' +
+                ", yellow_vip_level='" + yellow_vip_level + '\'' +
+                ", level='" + level + '\'' +
+                ", is_yellow_year_vip='" + is_yellow_year_vip + '\'' +
+                '}';
     }
 }

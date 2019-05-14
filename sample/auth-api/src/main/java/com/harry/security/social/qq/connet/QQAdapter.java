@@ -31,7 +31,7 @@ public class QQAdapter implements ApiAdapter<QQ> {
         logger.info("QQImpl调用获取用户信息： " + userInfo.toString());
 
         values.setDisplayName(userInfo.getNickname()); // 昵称
-        values.setImageUrl(userInfo.getFigureurl_1()); // 图像url 40x40
+        values.setImageUrl(userInfo.getFigureurl_qq_1()); // 图像url 40x40
         values.setProfileUrl(null); //个人主页
         values.setProviderUserId(userInfo.getOpenId()); // openid
     }

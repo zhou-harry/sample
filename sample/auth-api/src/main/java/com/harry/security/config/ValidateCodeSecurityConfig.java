@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author harry
  * @version 1.0
  * @title: ValidateCodeSecurityConfig
- * @description: TODO
+ * @description: 验证码配置入口
  * @date 2019/5/12 0:32
  */
 @Configuration

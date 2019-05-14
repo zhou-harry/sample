@@ -2,7 +2,7 @@
 ## Eureka注册中心：`harry-eureka-server:（9091/9092）`
 ## 外部化配置服务器：`harry-config-server:7070`
 ## 外部化配置客户端：`harry-config-client:6060`
-## 服务网关：`harry-zuul-server:10000`
+## 服务网关：`harry-zuul-server:80`
 ## 用户服务提供者：`harry-user-server:8080`
 ## 用户服务客户端：`harry-user-client:8081`
 ## 邮件服务器：`harry-mail-server:5050`
