@@ -1,5 +1,6 @@
 package com.harry.security.validate.code.sms;
 
+import com.harry.security.constant.ValidateCodeTypeEnum;
 import com.harry.security.properties.SecurityProperties;
 import com.harry.security.validate.code.ValidateCode;
 import com.harry.security.validate.code.ValidateCodeGenerator;
@@ -20,6 +21,11 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
 
     @Autowired
     private SecurityProperties securityProperties;
+
+    @Override
+    public ValidateCodeTypeEnum getValidateCodeType() {
+        return ValidateCodeTypeEnum.SMS;
+    }
 
     @Override
     public ValidateCode generator(ServletWebRequest request) {

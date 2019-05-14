@@ -51,7 +51,7 @@ public class WeixinAutoConfig implements SocialConfigurer {
         return null;
     }
 
-    @Bean({"connect/weixinConnect", "connect/weixinConnected"})
+    @Bean({"connect/weixinConnected", "connect/weixinConnect"})
     @ConditionalOnMissingBean(name = "weixinConnectedView")
     public View weixinConnectedView() {
         return new CustomerConnectView();

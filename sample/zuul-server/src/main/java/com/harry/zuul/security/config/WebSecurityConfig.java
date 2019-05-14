@@ -1,9 +1,9 @@
 package com.harry.zuul.security.config;
 
 import com.harry.security.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
-import com.harry.security.config.ValidateCodeSecurityConfig;
 import com.harry.security.constant.SecurityConstants;
 import com.harry.security.properties.SecurityProperties;
+import com.harry.security.validate.code.ValidateCodeConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.social.security.SpringSocialConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -26,10 +28,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
     private final AuthenticationSuccessHandler baseAuthenticationSuccessHandler;
     private final AuthenticationFailureHandler baseAuthenticationFailureHandler;
     private final SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
-    private final ValidateCodeSecurityConfig validateCodeSecurityConfig;
+    private final ValidateCodeConfig validateCodeSecurityConfig;
     private final SpringSocialConfigurer socialSecurityConfig;
+    private final SessionInformationExpiredStrategy expiredSessionStrategy;
+    private final InvalidSessionStrategy invalidSessionStrategy;
 
-    public WebSecurityConfig(PersistentTokenRepository persistentTokenRepository, SecurityProperties securityProperties, AuthenticationSuccessHandler baseAuthenticationSuccessHandler, AuthenticationFailureHandler baseAuthenticationFailureHandler, SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig, ValidateCodeSecurityConfig validateCodeSecurityConfig, SpringSocialConfigurer socialSecurityConfig) {
+    public WebSecurityConfig(PersistentTokenRepository persistentTokenRepository, SecurityProperties securityProperties, AuthenticationSuccessHandler baseAuthenticationSuccessHandler, AuthenticationFailureHandler baseAuthenticationFailureHandler, SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig, ValidateCodeConfig validateCodeSecurityConfig, SpringSocialConfigurer socialSecurityConfig, SessionInformationExpiredStrategy expiredSessionStrategy, InvalidSessionStrategy invalidSessionStrategy) {
         this.persistentTokenRepository = persistentTokenRepository;
         this.securityProperties = securityProperties;
         this.baseAuthenticationSuccessHandler = baseAuthenticationSuccessHandler;
@@ -37,6 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
         this.smsCodeAuthenticationSecurityConfig = smsCodeAuthenticationSecurityConfig;
         this.validateCodeSecurityConfig = validateCodeSecurityConfig;
         this.socialSecurityConfig = socialSecurityConfig;
+        this.expiredSessionStrategy = expiredSessionStrategy;
+        this.invalidSessionStrategy = invalidSessionStrategy;
     }
 
 
@@ -61,7 +67,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .tokenRepository(persistentTokenRepository)
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(userDetailsService)
+                .and()//Session 相关配置
+                .sessionManagement()
+                .invalidSessionStrategy(invalidSessionStrategy)
+                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
+                .expiredSessionStrategy(expiredSessionStrategy)
                 .and()//授权相关的配置
+                .and()
                 .authorizeRequests()
                 .antMatchers(SecurityConstants.MATCHERS).permitAll()
                 .antMatchers(securityProperties.getBrowser().getSignInUrl()).permitAll()

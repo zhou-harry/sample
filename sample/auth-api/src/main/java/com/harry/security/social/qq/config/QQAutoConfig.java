@@ -3,8 +3,11 @@ package com.harry.security.social.qq.config;
 import com.harry.security.properties.SecurityProperties;
 import com.harry.security.properties.SocialProperties;
 import com.harry.security.social.qq.connet.QQConnectionFactory;
+import com.harry.security.social.view.CustomerConnectView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.social.UserIdSource;
@@ -13,6 +16,7 @@ import org.springframework.social.config.annotation.SocialConfigurer;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
+import org.springframework.web.servlet.View;
 
 /**
  * @author harry
@@ -43,5 +47,15 @@ public class QQAutoConfig implements SocialConfigurer {
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
         return null;
+    }
+
+    /**
+     * 绑定/解绑
+     * @return
+     */
+    @Bean({"connect/qqConnected", "connect/qqConnect"})
+    @ConditionalOnMissingBean(name = "qqConnectedView")
+    public View qqConnectedView() {
+        return new CustomerConnectView();
     }
 }

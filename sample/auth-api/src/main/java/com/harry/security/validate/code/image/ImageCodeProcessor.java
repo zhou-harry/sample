@@ -1,5 +1,6 @@
 package com.harry.security.validate.code.image;
 
+import com.harry.security.constant.SecurityConstants;
 import com.harry.security.validate.code.AbstractValidateCodeProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ import javax.imageio.ImageIO;
  * @description: 图片验证码处理器
  * @date 2019/5/11 23:08
  */
-@Component
+@Component(SecurityConstants.DEFAULT_IMAGE_CODE_PROCESSOR)
 public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode, ImageCodeGenerator> {
 
     @Autowired

@@ -1,5 +1,6 @@
 package com.harry.security.validate.code.sms;
 
+import com.harry.security.constant.SecurityConstants;
 import com.harry.security.validate.code.AbstractValidateCodeProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @description: 短信验证码处理器
  * @date 2019/5/11 22:59
  */
-@Component
+@Component(SecurityConstants.DEFAULT_SMS_CODE_PROCESSOR)
 public class SmsCodeProcessor extends AbstractValidateCodeProcessor<SmsCode, SmsCodeGenerator> {
 
     @Autowired

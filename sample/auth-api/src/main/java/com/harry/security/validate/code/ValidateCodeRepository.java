@@ -7,7 +7,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @author harry
  * @version 1.0
  * @title: ValidateCodeRepository
- * @description: TODO
+ * @description: 验证码持久化仓库
  * @date 2019/5/11 22:46
  */
 public interface ValidateCodeRepository {

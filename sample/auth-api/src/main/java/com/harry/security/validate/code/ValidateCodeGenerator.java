@@ -1,5 +1,6 @@
 package com.harry.security.validate.code;
 
+import com.harry.security.constant.ValidateCodeTypeEnum;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
@@ -12,6 +13,17 @@ import org.springframework.web.context.request.ServletWebRequest;
  */
 public interface ValidateCodeGenerator {
 
+    /**
+     * 获取验证码生成器对应的验证码类型
+     * @return
+     */
+    ValidateCodeTypeEnum getValidateCodeType();
+
+    /**
+     * 生成验证码
+     * @param request
+     * @return
+     */
     ValidateCode generator(ServletWebRequest request);
 
 }

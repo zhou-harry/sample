@@ -4,6 +4,8 @@ import com.harry.database.config.DynamicDataSourceConfig;
 import com.harry.database.config.StaticDataSourceConfig;
 import com.harry.security.properties.SecurityProperties;
 import com.harry.security.repository.SessionValidateCodeRepository;
+import com.harry.security.session.CustomerInvalidSessionStrategy;
+import com.harry.security.session.CustomerSessionExpiredStrategy;
 import com.harry.security.validate.code.ValidateCodeRepository;
 import com.harry.security.validate.code.sms.DefaultSmsCodeSender;
 import com.harry.security.validate.code.sms.SmsCodeSender;
@@ -17,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 import javax.sql.DataSource;
 
@@ -32,9 +36,12 @@ import javax.sql.DataSource;
 @AutoConfigureAfter({StaticDataSourceConfig.class, DynamicDataSourceConfig.class})
 public class SecurityCoreConfig {
 
+    private final SecurityProperties securityProperties;
+
     private final DataSource defaultDataSource;
 
-    public SecurityCoreConfig(@Qualifier("defaultDataSource") DataSource defaultDataSource) {
+    public SecurityCoreConfig(SecurityProperties securityProperties, @Qualifier("defaultDataSource") DataSource defaultDataSource) {
+        this.securityProperties = securityProperties;
         this.defaultDataSource = defaultDataSource;
     }
 
@@ -60,8 +67,21 @@ public class SecurityCoreConfig {
 
     @Bean
     @ConditionalOnMissingBean(ValidateCodeRepository.class)
-    public SessionValidateCodeRepository validateCodeRepository(){
+    public SessionValidateCodeRepository validateCodeRepository() {
         return new SessionValidateCodeRepository();
+    }
+
+
+    @Bean
+    @ConditionalOnMissingBean(InvalidSessionStrategy.class)
+    public InvalidSessionStrategy invalidSessionStrategy() {
+        return new CustomerInvalidSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(SessionInformationExpiredStrategy.class)
+    public SessionInformationExpiredStrategy sessionInformationExpiredStrategy() {
+        return new CustomerSessionExpiredStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
     }
 
 }

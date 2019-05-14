@@ -14,7 +14,7 @@ public class SecurityConstants {
     /**
      * 默认记住账号密码时间
      */
-    public static final int DEFAULT_REMEMBERME_SECONDS=3600;
+    public static final int DEFAULT_REMEMBERME_SECONDS = 3600;
 
     /**
      * 默认的验证码请求的前缀
@@ -58,6 +58,28 @@ public class SecurityConstants {
     /**
      * SocialAuthenticationFilter默认的处理路径
      */
-    public static final String DEFAULT_FILTER_PROCESSES_URL="/auth";
+    public static final String DEFAULT_FILTER_PROCESSES_URL = "/auth";
 
+    /**
+     * 图片验证码处理器实例名
+     */
+    public static final String DEFAULT_IMAGE_CODE_PROCESSOR = "imageCodeProcessor";
+
+    /**
+     * 短信验证码处理器实例名
+     */
+    public static final String DEFAULT_SMS_CODE_PROCESSOR = "smsCodeProcessor";
+    /**
+     * session失效时跳转的地址
+     */
+    public static final String DEFAULT_SESSION_INVALID_URL="/session/invalid";
+
+    /**
+     * 达到最大session时是否阻止新的登录请求，默认为false，不阻止，新的登录会将老的登录失效掉
+     */
+    public static final boolean DEFAULT_MAX_SESSIONS_PREVENTS_LOGIN = false;
+    /**
+     * 同一个用户在系统中的最大session数，默认1
+     */
+    public static final int DEFAULT_MAXIMUM_SESSIONS = 1;
 }

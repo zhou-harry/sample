@@ -1,5 +1,6 @@
 package com.harry.security.validate.code.image;
 
+import com.harry.security.constant.ValidateCodeTypeEnum;
 import com.harry.security.properties.SecurityProperties;
 import com.harry.security.util.VerifyCodeUtil;
 import com.harry.security.validate.code.ValidateCode;
@@ -23,6 +24,11 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
 
     @Autowired
     private SecurityProperties securityProperties;
+
+    @Override
+    public ValidateCodeTypeEnum getValidateCodeType() {
+        return ValidateCodeTypeEnum.IMAGE;
+    }
 
     @Override
     public ValidateCode generator(ServletWebRequest request) {

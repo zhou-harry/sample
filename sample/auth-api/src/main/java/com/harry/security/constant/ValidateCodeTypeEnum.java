@@ -19,6 +19,11 @@ public enum  ValidateCodeTypeEnum {
         public String getSessionKey() {
             return SecurityConstants.SESSION_KEY_IMAGE;
         }
+
+        @Override
+        public String getProcessor() {
+            return SecurityConstants.DEFAULT_IMAGE_CODE_PROCESSOR;
+        }
     },
     SMS {
         @Override
@@ -30,10 +35,17 @@ public enum  ValidateCodeTypeEnum {
         public String getSessionKey() {
             return SecurityConstants.SESSION_KEY_SMS;
         }
+
+        @Override
+        public String getProcessor() {
+            return SecurityConstants.DEFAULT_SMS_CODE_PROCESSOR;
+        }
     };
 
     public abstract String getParameterNameOnValidate();
 
     public abstract String getSessionKey();
+
+    public abstract String getProcessor();
 
 }

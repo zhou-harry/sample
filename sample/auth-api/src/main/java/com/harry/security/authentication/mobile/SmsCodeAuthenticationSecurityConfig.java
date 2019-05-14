@@ -1,7 +1,5 @@
 package com.harry.security.authentication.mobile;
 
-import com.harry.security.authentication.mobile.SmsCodeAuthenticationFilter;
-import com.harry.security.authentication.mobile.SmsCodeAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +38,7 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
         //1，配置短信验证码过滤器
         SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter();
         smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-        //设置认证失败成功处理器
+        //设置认证失败/成功处理器
         smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(baseAuthenticationSuccessHandler);
         smsCodeAuthenticationFilter.setAuthenticationFailureHandler(baseAuthenticationFailureHandler);
 

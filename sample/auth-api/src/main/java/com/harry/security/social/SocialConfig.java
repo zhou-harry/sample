@@ -9,9 +9,11 @@ import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.SpringSocialConfigurer;
 
@@ -61,6 +63,21 @@ public class SocialConfig extends SocialConfigurerAdapter {
                 connectionFactoryLocator,
                 getUsersConnectionRepository(connectionFactoryLocator)
         );
+    }
+
+    /**
+     * 提供查询社交账户信息服务，绑定/解绑等服务<br/>
+     * 为什么在ConnectController中已经注明了@Controller，而在此处还需要显示的声明一个@Bean对象<br/>
+     * 我的理解是因为auth-api 默认只扫描：@ComponentScan({"com.harry.security"})
+     * @param connectionFactoryLocator
+     * @param connectionRepository
+     * @return
+     */
+    @Bean
+    public ConnectController connectController(
+            ConnectionFactoryLocator connectionFactoryLocator,
+            ConnectionRepository connectionRepository) {
+        return new ConnectController(connectionFactoryLocator, connectionRepository);
     }
 
 }
