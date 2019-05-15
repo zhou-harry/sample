@@ -65,13 +65,13 @@ public class AbstractSessionStrategy {
         String targetUrl;
 
         if (StringUtils.endsWithIgnoreCase(sourceUrl, ".html")) {
-            targetUrl = destinationUrl+".html";
-            logger.info("session失效,跳转到"+targetUrl);
-            redirectStrategy.sendRedirect(request, response, targetUrl);
+//            targetUrl = destinationUrl+".html";
+            logger.info("session失效,跳转到"+destinationUrl);
+            redirectStrategy.sendRedirect(request, response, destinationUrl);
         }else{
             String message = "session已失效";
             if(isConcurrency()){
-                message = message + "，有可能是并发登录导致的";
+                message = message + "，请确认您是否已在其它终端登录当前账号";
             }
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setContentType("application/json;charset=UTF-8");

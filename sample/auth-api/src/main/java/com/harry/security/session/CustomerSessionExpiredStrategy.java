@@ -10,7 +10,7 @@ import java.io.IOException;
  * @author harry
  * @version 1.0
  * @title: CustomerSessionExpiredStrategy
- * @description: TODO
+ * @description: Session 并发失效策略处理器
  * @date 2019/5/15 0:03
  */
 public class CustomerSessionExpiredStrategy extends AbstractSessionStrategy implements SessionInformationExpiredStrategy {
@@ -28,5 +28,9 @@ public class CustomerSessionExpiredStrategy extends AbstractSessionStrategy impl
         onSessionInvalid(event.getRequest(), event.getResponse());
     }
 
+    @Override
+    protected boolean isConcurrency() {
+        return true;
+    }
 
 }

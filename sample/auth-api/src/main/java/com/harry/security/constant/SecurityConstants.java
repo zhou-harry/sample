@@ -72,7 +72,7 @@ public class SecurityConstants {
     /**
      * session失效时跳转的地址
      */
-    public static final String DEFAULT_SESSION_INVALID_URL="/session/invalid";
+    public static final String DEFAULT_SESSION_INVALID_URL="/session/invalid.html";
 
     /**
      * 达到最大session时是否阻止新的登录请求，默认为false，不阻止，新的登录会将老的登录失效掉

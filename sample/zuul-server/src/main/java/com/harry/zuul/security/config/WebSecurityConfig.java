@@ -72,13 +72,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .invalidSessionStrategy(invalidSessionStrategy)
                 .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
                 .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
+                .expiredUrl(securityProperties.getBrowser().getSession().getSessionInvalidUrl())
                 .expiredSessionStrategy(expiredSessionStrategy)
-                .and()//授权相关的配置
                 .and()
+                .and()//授权相关的配置
                 .authorizeRequests()
                 .antMatchers(SecurityConstants.MATCHERS).permitAll()
                 .antMatchers(securityProperties.getBrowser().getSignInUrl()).permitAll()
                 .antMatchers(securityProperties.getBrowser().getSignUpUrl()).permitAll()
+                .antMatchers(securityProperties.getBrowser().getSession().getSessionInvalidUrl()).permitAll()
                 .antMatchers("/user/regist").permitAll()
                 .anyRequest()
                 .authenticated()
