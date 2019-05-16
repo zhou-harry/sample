@@ -14,11 +14,16 @@ public class BrowserProperties {
 
     //表单身份认证地址
     private String loginPage=SecurityConstants.DEFAULT_LOGIN_PAGE;
+    //账号退出地址
+    private String logoutPage=SecurityConstants.DEFAULT_LOGOUT_PAGE;
     //用户名密码登录请求处理url
     private String loginProcessingUrl=SecurityConstants.DEFAULT_SIGNIN_PROCESS_URL_FORM;
     //标准的登录页面，如果其他项目没有配置则使用默认的登录配置
     private String signInUrl = SecurityConstants.DEFAULT_SIGNIN_PAGE_URL;
+    //注册页面
     private String signUpUrl = SecurityConstants.DEFAULT_SIGNUP_PAGE_URL;
+    //退出页面
+    private String signOutUrl;
 
     private AuthenticationResponseTypeEnum loginType = AuthenticationResponseTypeEnum.JSON;
 
@@ -100,5 +105,21 @@ public class BrowserProperties {
 
     public void setLoginProcessingUrl(String loginProcessingUrl) {
         this.loginProcessingUrl = loginProcessingUrl;
+    }
+
+    public String getLogoutPage() {
+        return logoutPage;
+    }
+
+    public void setLogoutPage(String logoutPage) {
+        this.logoutPage = logoutPage;
+    }
+
+    public String getSignOutUrl() {
+        return signOutUrl;
+    }
+
+    public void setSignOutUrl(String signOutUrl) {
+        this.signOutUrl = signOutUrl;
     }
 }

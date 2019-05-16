@@ -12,6 +12,11 @@ public class SecurityConstants {
     public static final String DEFAULT_SIGNUP_PAGE_URL = "/signUp.html";
 
     /**
+     * 默认退出页面url
+     */
+    public static final String DEFAULT_SIGNOUT_PAGE_URL = "/signOut.html";
+
+    /**
      * 默认记住账号密码时间
      */
     public static final int DEFAULT_REMEMBERME_SECONDS = 3600;
@@ -28,6 +33,11 @@ public class SecurityConstants {
      * 默认表单身份认证地址
      */
     public final static String DEFAULT_LOGIN_PAGE = "/auth/require";
+
+    /**
+     * 默认退出url
+     */
+    public final static String DEFAULT_LOGOUT_PAGE = "/signOut";
 
     /**
      * 默认的用户名密码登录请求处理url
@@ -85,4 +95,5 @@ public class SecurityConstants {
      * 同一个用户在系统中的最大session数，默认1
      */
     public static final int DEFAULT_MAXIMUM_SESSIONS = 1;
+
 }
