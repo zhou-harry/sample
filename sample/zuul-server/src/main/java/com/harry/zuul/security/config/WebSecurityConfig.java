@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import org.springframework.social.security.SpringSocialConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -32,8 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
     private final SpringSocialConfigurer socialSecurityConfig;
     private final SessionInformationExpiredStrategy expiredSessionStrategy;
     private final InvalidSessionStrategy invalidSessionStrategy;
+    private final SpringSessionBackedSessionRegistry redisSessionRegistry;
 
-    public WebSecurityConfig(PersistentTokenRepository persistentTokenRepository, SecurityProperties securityProperties, AuthenticationSuccessHandler baseAuthenticationSuccessHandler, AuthenticationFailureHandler baseAuthenticationFailureHandler, SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig, ValidateCodeConfig validateCodeSecurityConfig, SpringSocialConfigurer socialSecurityConfig, SessionInformationExpiredStrategy expiredSessionStrategy, InvalidSessionStrategy invalidSessionStrategy) {
+    public WebSecurityConfig(PersistentTokenRepository persistentTokenRepository, SecurityProperties securityProperties, AuthenticationSuccessHandler baseAuthenticationSuccessHandler, AuthenticationFailureHandler baseAuthenticationFailureHandler, SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig, ValidateCodeConfig validateCodeSecurityConfig, SpringSocialConfigurer socialSecurityConfig, SessionInformationExpiredStrategy expiredSessionStrategy, InvalidSessionStrategy invalidSessionStrategy, SpringSessionBackedSessionRegistry redisSessionRegistry) {
         this.persistentTokenRepository = persistentTokenRepository;
         this.securityProperties = securityProperties;
         this.baseAuthenticationSuccessHandler = baseAuthenticationSuccessHandler;
@@ -43,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
         this.socialSecurityConfig = socialSecurityConfig;
         this.expiredSessionStrategy = expiredSessionStrategy;
         this.invalidSessionStrategy = invalidSessionStrategy;
+        this.redisSessionRegistry = redisSessionRegistry;
     }
 
 
@@ -58,8 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .apply(socialSecurityConfig)
                 .and()//表单认证相关配置
                 .formLogin()
-                .loginPage(SecurityConstants.LOGIN_PAGE)
-                .loginProcessingUrl(SecurityConstants.DEFAULT_SIGNIN_PROCESS_URL_FORM)
+                .loginPage(securityProperties.getBrowser().getLoginPage())
+                .loginProcessingUrl(securityProperties.getBrowser().getLoginProcessingUrl())
                 .successHandler(baseAuthenticationSuccessHandler)
                 .failureHandler(baseAuthenticationFailureHandler)
                 .and()//Remember me 相关配置
@@ -74,6 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
                 .expiredUrl(securityProperties.getBrowser().getSession().getSessionInvalidUrl())
                 .expiredSessionStrategy(expiredSessionStrategy)
+                .sessionRegistry(redisSessionRegistry)
                 .and()
                 .and()//授权相关的配置
                 .authorizeRequests()

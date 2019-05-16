@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 public class ImageCode extends ValidateCode {
 
-    private BufferedImage image;
+    private transient BufferedImage image;
 
     public ImageCode(BufferedImage image, String code, int expireTn) {
         super(code, expireTn);

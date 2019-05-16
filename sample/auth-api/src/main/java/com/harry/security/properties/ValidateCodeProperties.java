@@ -36,8 +36,8 @@ public class ValidateCodeProperties {
      */
     public class ImageCodeProperties {
 
-        private int width = 100;    //图片长度
-        private int height = 40;   //图片高度
+        private int width = 100;    //图片宽
+        private int height = 40;   //图片高
         private int length = 4;    //验证码长度
         private int expireIn = 60; //失效时间
         private String url;        //多个请求需要验证；逗号隔开

@@ -24,7 +24,10 @@ public class SecurityConstants {
     public static final String SESSION_KEY_IMAGE = "SESSION_KEY_IMAGE_CODE";
     public static final String SESSION_KEY_SMS = "SESSION_KEY_SMS_CODE";
 
-    public final static String LOGIN_PAGE = "/auth/require";
+    /**
+     * 默认表单身份认证地址
+     */
+    public final static String DEFAULT_LOGIN_PAGE = "/auth/require";
 
     /**
      * 默认的用户名密码登录请求处理url
@@ -37,7 +40,7 @@ public class SecurityConstants {
     public final static String DEFAULT_SIGNIN_PROCESS_URL_MOBILE = "/auth/mobile";
 
     public final static String[] MATCHERS = {
-            LOGIN_PAGE,
+            DEFAULT_LOGIN_PAGE,
             DEFAULT_SIGNIN_PROCESS_URL_MOBILE,
             DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
             "/error"

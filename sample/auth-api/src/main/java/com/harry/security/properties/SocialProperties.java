@@ -6,7 +6,7 @@ import com.harry.security.constant.SecurityConstants;
  * @author harry
  * @version 1.0
  * @title: SocialProperties
- * @description: TODO
+ * @description: 社交认证配置属性
  * @date 2019/5/12 16:37
  */
 public class SocialProperties {

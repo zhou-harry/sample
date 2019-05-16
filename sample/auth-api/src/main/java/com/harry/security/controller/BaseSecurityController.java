@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.harry.security.constant.SecurityConstants.LOGIN_PAGE;
+import static com.harry.security.constant.SecurityConstants.DEFAULT_LOGIN_PAGE;
 
 @RestController
 @AllArgsConstructor
@@ -32,7 +32,7 @@ public class BaseSecurityController {
     private final SecurityProperties securityProperties;
 
     //当需要身份认证时，跳转到这里
-    @RequestMapping(LOGIN_PAGE)
+    @RequestMapping(DEFAULT_LOGIN_PAGE)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED) //不是html请求时，返回401状态码
     public BaseSecurityResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //之前缓存的请求（可以拿到引发跳转的请求）

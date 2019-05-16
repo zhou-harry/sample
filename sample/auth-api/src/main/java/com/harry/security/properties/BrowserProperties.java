@@ -7,11 +7,15 @@ import com.harry.security.constant.SecurityConstants;
  * @author harry
  * @version 1.0
  * @title: BrowserProperties
- * @description: TODO
+ * @description: 表单属性配置
  * @date 2019/5/11 23:45
  */
 public class BrowserProperties {
 
+    //表单身份认证地址
+    private String loginPage=SecurityConstants.DEFAULT_LOGIN_PAGE;
+    //用户名密码登录请求处理url
+    private String loginProcessingUrl=SecurityConstants.DEFAULT_SIGNIN_PROCESS_URL_FORM;
     //标准的登录页面，如果其他项目没有配置则使用默认的登录配置
     private String signInUrl = SecurityConstants.DEFAULT_SIGNIN_PAGE_URL;
     private String signUpUrl = SecurityConstants.DEFAULT_SIGNUP_PAGE_URL;
@@ -80,5 +84,21 @@ public class BrowserProperties {
 
     public void setSession(SessionProperties session) {
         this.session = session;
+    }
+
+    public String getLoginPage() {
+        return loginPage;
+    }
+
+    public void setLoginPage(String loginPage) {
+        this.loginPage = loginPage;
+    }
+
+    public String getLoginProcessingUrl() {
+        return loginProcessingUrl;
+    }
+
+    public void setLoginProcessingUrl(String loginProcessingUrl) {
+        this.loginProcessingUrl = loginProcessingUrl;
     }
 }

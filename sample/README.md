@@ -102,6 +102,70 @@
     
 ##认证授权组件：`auth-api`
 ***(授权组件依赖数据库组件,在引用认证授权组件时需参考配置数据源)***
+
+- **验证码**
+    1. 图形验证码
+    - **application.properties配置**
+    ```sh
+     #验证码位数
+     harry.security.validateCode.image.length = 4
+     #验证码图片宽
+     harry.security.validateCode.image.width = 100
+     #验证码图片高
+     harry.security.validateCode.image.height = 40
+     #过期时间(秒)
+     harry.security.validateCode.image.expireIn = 60
+     #验证码拦截的url(多个请求需要验证，逗号隔开)
+     harry.security.validateCode.image.url = /user,/user/*
+     ```
+    1. 短信验证码
+    - **application.properties配置**
+        ```sh
+         #验证码位数
+         harry.security.validateCode.sms.length = 4
+         #过期时间(秒)
+         harry.security.validateCode.image.expireIn = 60
+         #验证码拦截的url(多个请求需要验证，逗号隔开)
+         harry.security.validateCode.image.url = /user,/user/*
+         ```
+- **认证**
+    1. 表单认证
+    - **application.properties配置**
+        ```sh
+         #表单身份认证地址
+         harry.security.browser.loginPage = /auth/require
+         #表单登录请求处理url
+         harry.security.browser.loginProcessingUrl = /auth/form
+         #登录页面地址
+         harry.security.browser.signInUrl = /signIn.html
+         #注册页面地址
+         harry.security.browser.signUpUrl = /signUp.html
+         ```
+    1. 第三方认证(QQ,微信)
+    - **application.properties配置**
+        ```sh
+         #社交账号认证处理路径
+         harry.security.social.filterProcessUrl = /auth
+         
+         ##QQ账号认证
+         #{filterProcessUrl}/{providerId}组成qq回调路径
+         harry.security.social.qq.providerId = qq
+         harry.security.social.qq.appId = *****
+         harry.security.social.qq.appSecret = *****
+         
+         ##微信账号认证
+         #{filterProcessUrl}/{providerId}组成微信回调路径
+         harry.security.social.weixin.providerId = weixin
+         harry.security.social.weixin.appId = *****
+         harry.security.social.weixin.appSecret = *****
+         ```
+- **Remember me**
+- **Session**
+    1. 单节点Session管理
+    1. 集群Session管理
+- **授权**
+
+- **配置application.properties**
 ```sh
  ###权限控制
  #权限登录地址
