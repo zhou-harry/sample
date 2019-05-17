@@ -100,7 +100,7 @@
     dynamic.datasource.sources[0].connectionProperties=druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     ```
     
-##认证授权组件：`auth-api`
+## 认证授权组件：`auth-api`
 ***(授权组件依赖数据库组件,在引用认证授权组件时需参考配置数据源)***
 
 - **验证码**
