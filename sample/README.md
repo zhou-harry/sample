@@ -106,21 +106,23 @@
 - **验证码**
     1. 图形验证码
     - **application.properties配置**
-    ```sh
-     #验证码位数
-     harry.security.validateCode.image.length = 4
-     #验证码图片宽
-     harry.security.validateCode.image.width = 100
-     #验证码图片高
-     harry.security.validateCode.image.height = 40
-     #过期时间(秒)
-     harry.security.validateCode.image.expireIn = 60
-     #验证码拦截的url(多个请求需要验证，逗号隔开)
-     harry.security.validateCode.image.url = /user,/user/*
-     ```
+        ```sh
+         #验证码位数
+         harry.security.validateCode.image.length = 4
+         #验证码图片宽
+         harry.security.validateCode.image.width = 100
+         #验证码图片高
+         harry.security.validateCode.image.height = 40
+         #过期时间(秒)
+         harry.security.validateCode.image.expireIn = 60
+         #验证码拦截的url(多个请求需要验证，逗号隔开)
+         harry.security.validateCode.image.url = /user,/user/*
+         ```
     1. 短信验证码
     - **application.properties配置**
         ```sh
+         #手机验证码登录请求处理url
+         harry.security.browser.signinProcessUrlMobile = /auth/mobile
          #验证码位数
          harry.security.validateCode.sms.length = 4
          #过期时间(秒)
@@ -132,14 +134,20 @@
     1. 表单认证
     - **application.properties配置**
         ```sh
-         #表单身份认证地址
+         #登陆请求方式(JSON/REDIRECT)
+         harry.security.browser.loginType = JSON
+         #表单身份认证路径
          harry.security.browser.loginPage = /auth/require
+         #账号登出请求路径
+         harry.security.browser.logoutPage=/signOut
          #表单登录请求处理url
-         harry.security.browser.loginProcessingUrl = /auth/form
+         harry.security.browser.signinProcessUrlForm = /auth/form
          #登录页面地址
          harry.security.browser.signInUrl = /signIn.html
          #注册页面地址
          harry.security.browser.signUpUrl = /signUp.html
+         #登出页面地址(默认null)
+         harry.security.browser.signOutUrl = /signOut.html
          ```
     1. 第三方认证(QQ,微信)
     - **application.properties配置**
@@ -160,25 +168,45 @@
          harry.security.social.weixin.appSecret = *****
          ```
 - **Remember me**
+    - **application.properties配置**
+        ```sh
+         #默认记住账号密码时间(秒)
+         harry.security.browser.rememberMeSeconds = 3600
+         ```
 - **Session**
-    1. 单节点Session管理
-    1. 集群Session管理
+    - **application.properties配置**
+        ```sh
+         #同一个用户在系统中的最大session数
+         harry.security.browser.session.maximumSessions = 1
+         #达到最大session时是否阻止新的登录请求，默认为false，不阻止，新的登录会将老的登录失效掉
+         harry.security.browser.session.maxSessionsPreventsLogin = false
+         #session失效时跳转的地址
+         harry.security.browser.session.sessionInvalidUrl = /session/invalid.html
+         
+         #Session超时时间(秒)
+         server.servlet.session.timeout= 300
+         server.servlet.session.cookie.name=HARRY_SESSIONID
+         server.servlet.session.cookie.http-only=true
+         ```
+         1. 单节点Session管理
+            ```sh
+              #管理Session的方式
+              spring.session.store-type=NONE
+              
+              ```
+         1. 集群Session管理
+            - 此处需要指定`sessionRegistry`为`redisSessionRegistry`
+            ```java
+                http.sessionManagement().sessionRegistry(redisSessionRegistry)
+            ```
+             ```sh
+               #管理Session的方式
+               spring.session.store-type=REDIS
+               #设置session在redis中的Namespace，避免和其他key冲突
+               spring.session.redis.namespace=harry
+               #集群Redis
+               spring.redis.cluster.nodes=192.168.234.128:7001,192.168.234.128:7002,192.168.234.128:7003,192.168.234.128:7004,192.168.234.128:7005,192.168.234.128:7006
+               ```
 - **授权**
-
-- **配置application.properties**
-```sh
- ###权限控制
- #权限登录地址
- harry.security.browser.signInUrl=/login.html
- #权限登录方式
- harry.security.browser.loginType=REDIRECT
- ##验证码
- #验证码位数
- harry.security.validateCode.image.length = 4
- harry.security.validateCode.image.width = 60
- harry.security.validateCode.image.height = 25
- ####验证码拦截的url
- harry.security.validateCode.image.url = /user,/user/*
- ```
  
  

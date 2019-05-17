@@ -1,5 +1,6 @@
 package com.harry.security.authentication.mobile;
 
+import com.harry.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,22 +22,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    private final AuthenticationSuccessHandler baseAuthenticationSuccessHandler;
-    private final AuthenticationFailureHandler baseAuthenticationFailureHandler;
-
+    @Autowired
+    private AuthenticationSuccessHandler baseAuthenticationSuccessHandler;
+    @Autowired
+    private AuthenticationFailureHandler baseAuthenticationFailureHandler;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private SecurityProperties securityProperties;
 
-    public SmsCodeAuthenticationSecurityConfig(AuthenticationSuccessHandler baseAuthenticationSuccessHandler, AuthenticationFailureHandler baseAuthenticationFailureHandler) {
-        this.baseAuthenticationSuccessHandler = baseAuthenticationSuccessHandler;
-        this.baseAuthenticationFailureHandler = baseAuthenticationFailureHandler;
-    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
         //1，配置短信验证码过滤器
-        SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter();
+        SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter(securityProperties.getBrowser().getSigninProcessUrlMobile());
+
         smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
         //设置认证失败/成功处理器
         smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(baseAuthenticationSuccessHandler);

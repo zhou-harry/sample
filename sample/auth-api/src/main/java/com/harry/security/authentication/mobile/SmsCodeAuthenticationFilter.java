@@ -34,8 +34,8 @@ public class SmsCodeAuthenticationFilter extends
     // ~ Constructors
     // ===================================================================================================
 
-    public SmsCodeAuthenticationFilter() {
-        super(new AntPathRequestMatcher(DEFAULT_SIGNIN_PROCESS_URL_MOBILE, "POST"));
+    public SmsCodeAuthenticationFilter(String signinProcessUrlMobile) {
+        super(new AntPathRequestMatcher(signinProcessUrlMobile, "POST"));
     }
 
     // ~ Methods

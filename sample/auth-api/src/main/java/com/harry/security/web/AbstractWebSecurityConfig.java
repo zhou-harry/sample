@@ -38,7 +38,7 @@ public class AbstractWebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void applyPasswordAuthConfig(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage(securityProperties.getBrowser().getLoginPage())
-                .loginProcessingUrl(securityProperties.getBrowser().getLoginProcessingUrl())
+                .loginProcessingUrl(securityProperties.getBrowser().getSigninProcessUrlForm())
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler);
     }

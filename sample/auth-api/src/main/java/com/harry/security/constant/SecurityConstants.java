@@ -17,6 +17,16 @@ public class SecurityConstants {
     public static final String DEFAULT_SIGNOUT_PAGE_URL = "/signOut.html";
 
     /**
+     * 默认的用户名密码登录请求处理url
+     */
+    public final static String DEFAULT_SIGNIN_PROCESS_URL_FORM = "/auth/form";
+
+    /**
+     * 默认的手机验证码登录请求处理url
+     */
+    public final static String DEFAULT_SIGNIN_PROCESS_URL_MOBILE = "/auth/mobile";
+
+    /**
      * 默认记住账号密码时间
      */
     public static final int DEFAULT_REMEMBERME_SECONDS = 3600;
@@ -38,16 +48,6 @@ public class SecurityConstants {
      * 默认退出url
      */
     public final static String DEFAULT_LOGOUT_PAGE = "/signOut";
-
-    /**
-     * 默认的用户名密码登录请求处理url
-     */
-    public final static String DEFAULT_SIGNIN_PROCESS_URL_FORM = "/auth/form";
-
-    /**
-     * 默认的手机验证码登录请求处理url
-     */
-    public final static String DEFAULT_SIGNIN_PROCESS_URL_MOBILE = "/auth/mobile";
 
     public final static String[] MATCHERS = {
             DEFAULT_LOGIN_PAGE,

@@ -58,7 +58,7 @@ public class WebSecurityConfig extends AbstractWebSecurityConfig implements WebM
         http
                 //自定义验证码过滤器
                 .apply(validateCodeSecurityConfig)
-                .and()//导入短信验证配置
+                .and()//短信验证配置
                 .apply(smsCodeAuthenticationSecurityConfig)
                 .and()//社交验证配置
                 .apply(socialSecurityConfig)
