@@ -2,7 +2,8 @@ package com.harry.database.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class DruidConfiguration {
+
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Bean
     public ServletRegistrationBean druidStatViewServle() {
@@ -40,7 +43,9 @@ public class DruidConfiguration {
         // 添加不需要忽略的格式信息
         filterRegistrationBean.addInitParameter("exclusions",
                 "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
-        System.out.println("druid初始化成功!");
+
+        logger.debug("druid初始化成功!");
+
         return filterRegistrationBean;
 
     }

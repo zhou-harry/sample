@@ -8,6 +8,8 @@ import com.harry.database.scanner.MapperScanner;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -30,6 +32,7 @@ import java.util.Properties;
 @MapperScanner(value = "${static.datasource.packageLocation}",sqlSessionFactoryRef = "defaultSqlSessionFactory")
 public class StaticDataSourceConfig {
 
+    private Logger logger=LoggerFactory.getLogger(getClass());
 
     private final StaticDataSourceProperties dataSourceProperties;
 
@@ -40,7 +43,8 @@ public class StaticDataSourceConfig {
     @Primary
     @Bean(name = "defaultDataSource")
     public DataSource defaultDataSource() {
-        System.out.println("初始化静态数据源...");
+        logger.debug("初始化静态数据源...");
+
         DruidDataSource dataSource = new DruidDataSource();
         SourceProperties source = dataSourceProperties.getSource();
 

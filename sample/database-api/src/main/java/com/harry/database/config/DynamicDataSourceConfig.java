@@ -9,8 +9,9 @@ import com.harry.database.scanner.MapperScanner;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +37,8 @@ import java.util.Properties;
 )
 public class DynamicDataSourceConfig {
 
+    protected Logger logger = LoggerFactory.getLogger(getClass());
+
     private final DynamicDataSourceProperties dataSourceProperties;
 
     public DynamicDataSourceConfig(DynamicDataSourceProperties dataSourceProperties) {
@@ -44,7 +47,8 @@ public class DynamicDataSourceConfig {
 
     @Bean(name = "defaultDataSource")
     public DynamicDataSource dynamicDataSource() {
-        System.out.println("初始化动态数据源...");
+        logger.debug("初始化动态数据源...");
+
         DynamicDataSource dynamicDataSource = DynamicDataSource.getInstance();
 
         List<SourceProperties> sources = dataSourceProperties.getSources();

@@ -2,12 +2,14 @@ package com.harry.zuul.security.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.ProviderSignInUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 /**
  * @author harry
@@ -28,6 +30,11 @@ public class UserController {
 
         //不管是注册用户还是绑定用户，都会拿到一个用户唯一标识。
         providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+    }
+
+    @GetMapping("/principal")
+    public Principal user(Principal principal) {
+        return principal;
     }
 
 }

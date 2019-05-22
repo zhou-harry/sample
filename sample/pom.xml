@@ -22,6 +22,7 @@
         <module>stream-output</module>
         <module>stream-input</module>
         <module>bus-server</module>
+        <module>auth-server</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -50,6 +51,7 @@
         <janino>3.0.8</janino>
         <mail>5.1.6</mail>
         <commons-collections>3.2.2</commons-collections>
+        <security-oauth2>2.3.3.RELEASE</security-oauth2>
     </properties>
 
     <dependencyManagement>

@@ -1,0 +1,45 @@
+package com.harry.security.core.social.view;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.connect.Connection;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.view.AbstractView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author harry
+ * @version 1.0
+ * @title: CustomerConnectStatusView
+ * @description: 与第三方绑定关系显示视图,组件名称必须：connect/status
+ * @date 2019/5/12 21:47
+ */
+@Component("connect/status")
+public class CustomerConnectStatusView extends AbstractView {
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
+                                           HttpServletResponse response) throws Exception {
+
+        Map<String, List<Connection<?>>> connections = (Map<String, List<Connection<?>>>) model.get("connectionMap");
+
+        Map<String, Boolean> result = new HashMap<>();
+        for (String key : connections.keySet()) {
+            result.put(key, CollectionUtils.isNotEmpty(connections.get(key)));
+        }
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(objectMapper.writeValueAsString(result));
+    }
+
+}
