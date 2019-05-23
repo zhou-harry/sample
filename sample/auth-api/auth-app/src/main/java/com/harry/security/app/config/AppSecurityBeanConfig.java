@@ -2,10 +2,12 @@ package com.harry.security.app.config;
 
 import com.harry.security.app.handler.AppAuthenticationFailureHandler;
 import com.harry.security.app.handler.AppAuthenticationSuccessHandler;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author harry
@@ -19,16 +21,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class AppSecurityBeanConfig {
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
+    @ConditionalOnMissingBean(AppAuthenticationFailureHandler.class)
     public AppAuthenticationFailureHandler appAuthenticationFailureHandler(){
         return new AppAuthenticationFailureHandler();
     }
 
     @Bean
+    @ConditionalOnMissingBean(AppAuthenticationSuccessHandler.class)
     public AppAuthenticationSuccessHandler appAuthenticationSuccessHandler(){
         return new AppAuthenticationSuccessHandler();
     }
