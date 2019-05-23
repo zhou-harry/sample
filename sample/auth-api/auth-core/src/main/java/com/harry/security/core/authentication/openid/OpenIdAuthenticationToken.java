@@ -18,8 +18,8 @@ public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
 
     // ~ Instance fields
     // ================================================================================================
-    private final Object principal;
-    private String providerId;
+    private final Object principal;//OpenId
+    private String providerId;//服务提供商
 
     // ~ Constructors
     // ===================================================================================================

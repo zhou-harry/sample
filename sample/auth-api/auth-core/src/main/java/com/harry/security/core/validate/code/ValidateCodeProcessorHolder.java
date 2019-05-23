@@ -11,7 +11,7 @@ import java.util.Map;
  * @author harry
  * @version 1.0
  * @title: ValidateCodeProcessorHolder
- * @description: TODO
+ * @description: 适配器模式（找出验证码的处理器）
  * @date 2019/5/14 16:35
  */
 @Component

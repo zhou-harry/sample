@@ -69,7 +69,7 @@ public class AppAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
         }
 
         @SuppressWarnings("unchecked")
-        TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId, clientDetails.getScope(), "custom");
+        TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId, clientDetails.getScope(), "harry");
 
         OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
 

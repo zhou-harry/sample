@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author harry
  * @version 1.0
  * @title: SmsCodeAuthenticationProvider
- * @description: 提供短信验证校验逻辑
+ * @description: 提供手机号认证校验逻辑
  * @date 2019/5/11 16:56
  */
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
@@ -31,7 +31,7 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
         UserDetails userDetails = userDetailsService.loadUserByUsername((String) authentication.getPrincipal());
 
         if(userDetails == null){
-            throw new InternalAuthenticationServiceException("短信认证失败");
+            throw new InternalAuthenticationServiceException("手机号认证失败");
         }
         //认证通过
         SmsCodeAuthenticationToken authenticationResult = new SmsCodeAuthenticationToken(userDetails, userDetails.getAuthorities());

@@ -13,15 +13,21 @@ import org.springframework.social.security.SpringSocialConfigurer;
 public class CustomerSocialConfigurer extends SpringSocialConfigurer {
 
     private final String filterProcessUrl;
+    private final SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor;
 
-    public CustomerSocialConfigurer(String filterProcessUrl) {
+    public CustomerSocialConfigurer(String filterProcessUrl, SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor) {
         this.filterProcessUrl = filterProcessUrl;
+        this.socialAuthenticationFilterPostProcessor = socialAuthenticationFilterPostProcessor;
     }
 
     @Override
     protected <T> T postProcess(T object) {
         SocialAuthenticationFilter filter = (SocialAuthenticationFilter) super.postProcess(object);
         filter.setFilterProcessesUrl(filterProcessUrl);
+
+        if (socialAuthenticationFilterPostProcessor != null) {
+            socialAuthenticationFilterPostProcessor.process(filter);
+        }
         return (T) filter;
     }
 

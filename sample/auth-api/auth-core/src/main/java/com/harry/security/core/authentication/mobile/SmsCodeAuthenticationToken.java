@@ -11,7 +11,7 @@ import java.util.Collection;
  * @author harry
  * @version 1.0
  * @title: SmsCodeAuthenticationToken
- * @description: 短信登录token
+ * @description: 手机号认证登录token
  * @date 2019/5/11 16:37
  * @see UsernamePasswordAuthenticationToken
  */

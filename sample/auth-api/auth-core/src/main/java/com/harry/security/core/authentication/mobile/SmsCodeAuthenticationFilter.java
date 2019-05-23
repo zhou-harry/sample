@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author harry
  * @version 1.0
  * @title: SmsCodeAuthenticationFilter
- * @description: 短信验证码过滤器
+ * @description: 手机号认证过滤器
  * @date 2019/5/11 16:41
  * @see UsernamePasswordAuthenticationFilter
  */

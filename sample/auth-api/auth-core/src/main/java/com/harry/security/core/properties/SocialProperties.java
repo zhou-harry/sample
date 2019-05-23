@@ -13,9 +13,11 @@ public class SocialProperties {
 
     private String filterProcessUrl = SecurityConstants.DEFAULT_FILTER_PROCESSES_URL;
 
+    private boolean open = false;//是否启用社交认证
+
     private QQProperties qq = new QQProperties();
 
-    private WeixinProperties weixin=new WeixinProperties();
+    private WeixinProperties weixin = new WeixinProperties();
 
     public QQProperties getQq() {
         return qq;
@@ -39,6 +41,14 @@ public class SocialProperties {
 
     public void setFilterProcessUrl(String filterProcessUrl) {
         this.filterProcessUrl = filterProcessUrl;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 
     public class QQProperties {

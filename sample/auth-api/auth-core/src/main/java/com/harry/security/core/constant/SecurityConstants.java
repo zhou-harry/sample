@@ -104,4 +104,12 @@ public class SecurityConstants {
      */
     public static final String DEFAULT_REQUEST_PARAMETER_PROVIDERID = "providerId";
 
+    /**
+     * 默认OAuth2签名
+     */
+    public static final String DEFAULT_OAUTH2_SIGNING_KEY = "harry";
+    /**
+     * 默认OAuth2 Token存储方式(jwt/redis)
+     */
+    public static final String DEFAULT_OAUTH2_STORETYPE = "jwt";
 }

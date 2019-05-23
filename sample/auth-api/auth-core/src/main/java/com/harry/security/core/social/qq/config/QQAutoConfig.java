@@ -1,9 +1,11 @@
 package com.harry.security.core.social.qq.config;
 
-import com.harry.security.core.social.qq.connet.QQConnectionFactory;
 import com.harry.security.core.properties.SecurityProperties;
 import com.harry.security.core.properties.SocialProperties;
+import com.harry.security.core.social.qq.connet.QQConnectionFactory;
 import com.harry.security.core.social.view.CustomerConnectView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -26,8 +28,10 @@ import org.springframework.web.servlet.View;
  * @date 2019/5/12 16:43
  */
 @Configuration
-@ConditionalOnProperty(prefix = "harry.security.social.qq", name = "app-id")
+@ConditionalOnProperty(name = "harry.security.social.open", havingValue = "true")
 public class QQAutoConfig implements SocialConfigurer {
+
+    Logger logger= LoggerFactory.getLogger(getClass());
 
     @Autowired
     private SecurityProperties securityProperties;

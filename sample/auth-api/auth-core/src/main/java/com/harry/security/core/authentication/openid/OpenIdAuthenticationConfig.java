@@ -1,9 +1,8 @@
 package com.harry.security.core.authentication.openid;
 
 import com.harry.security.core.properties.SecurityProperties;
-import com.harry.security.core.social.SocialConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -23,7 +22,7 @@ import org.springframework.social.security.SocialUserDetailsService;
  * @date 2019/5/20 11:15
  */
 @Configuration
-@ConditionalOnBean({SocialConfig.ConfigAdapter.class})
+@ConditionalOnProperty(name = "harry.security.social.open", havingValue = "true")
 public class OpenIdAuthenticationConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired

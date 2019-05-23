@@ -22,6 +22,7 @@ import java.util.Map;
 
 /**
  * 验证码配置过滤器(适配图形验证码，短信验证码)
+ *
  * @author harry
  * @version 1.0
  * @title: ValidateCodeFilter
@@ -69,7 +70,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     }
 
     private void addUrlToMap(String validateCodeUrl, ValidateCodeTypeEnum validateCodeType) {
-        if (StringUtils.isBlank(validateCodeUrl)){
+        if (StringUtils.isBlank(validateCodeUrl)) {
             return;
         }
         String[] validateCodeUrls = StringUtils.splitByWholeSeparator(validateCodeUrl, ",");
@@ -83,9 +84,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
             throws ServletException, IOException {
         logger.info("ValidateCodeFilter: " + request.getRequestURL());
 
-        /**
-         * 获取校验码的类型，如果当前请求不需要校验，则validateCodeType=null
-         */
+        //获取校验码的类型，如果当前请求不需要校验，则validateCodeType=null
         ValidateCodeTypeEnum validateCodeType = null;
         for (Map.Entry<String, ValidateCodeTypeEnum> entry : urlMap.entrySet()) {
             if (pathMatcher.match(entry.getKey(), request.getRequestURI())) {

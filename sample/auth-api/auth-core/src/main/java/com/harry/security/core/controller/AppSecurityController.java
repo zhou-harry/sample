@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("social")
-@ConditionalOnBean({SocialConfig.ConfigAdapter.class})
+@ConditionalOnBean({SocialConfig.class})
 public class AppSecurityController {
 
     @Autowired

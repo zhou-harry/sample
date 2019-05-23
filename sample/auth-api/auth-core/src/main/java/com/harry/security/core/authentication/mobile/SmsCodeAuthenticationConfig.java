@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author harry
  * @version 1.0
  * @title: SmsCodeAuthenticationSecurityConfig
- * @description: 短信验证码配置
+ * @description: 根据绑定的手机号认证登录
  * @date 2019/5/11 17:28
  */
 @Configuration
@@ -35,7 +35,7 @@ public class SmsCodeAuthenticationConfig extends SecurityConfigurerAdapter<Defau
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
-        //1，配置短信验证码过滤器
+        //1，配置手机号认证过滤器
         SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter(
                 securityProperties.getBrowser().getSigninProcessUrlMobile()
         );

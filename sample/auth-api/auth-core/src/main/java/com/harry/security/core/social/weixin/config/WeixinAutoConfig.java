@@ -26,7 +26,7 @@ import org.springframework.web.servlet.View;
  * @date 2019/5/12 18:51
  */
 @Configuration
-@ConditionalOnProperty(prefix = "harry.security.social.weixin", name = "app-id")
+@ConditionalOnProperty(name = "harry.security.social.open", havingValue = "true")
 public class WeixinAutoConfig implements SocialConfigurer {
 
     @Autowired
