@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  * @author harry
  * @version 1.0
  * @title: AppResourceServerConfig
- * @description: Oauth2资源服务器
+ * @description: Oauth2资源服务配置
  * @date 2019/5/20 11:31
  */
 @Configuration

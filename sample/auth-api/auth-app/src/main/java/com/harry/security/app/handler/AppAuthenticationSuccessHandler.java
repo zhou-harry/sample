@@ -36,10 +36,8 @@ public class AppAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
      */
     @Autowired
     private ObjectMapper objectMapper;
-
     @Autowired
     private ClientDetailsService clientDetailService;
-
     @Autowired
     private AuthorizationServerTokenServices authorizationServerTokenServices;
 
