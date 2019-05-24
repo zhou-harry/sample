@@ -1,10 +1,11 @@
 package com.harry.security.web.config;
 
 import com.harry.security.core.authentication.mobile.SmsCodeAuthenticationConfig;
+import com.harry.security.core.authroize.manager.AuthorizeConfigManager;
 import com.harry.security.core.constant.SecurityConstants;
 import com.harry.security.core.properties.SecurityProperties;
 import com.harry.security.core.validate.code.ValidateCodeConfig;
-import com.harry.security.core.web.AbstractWebSecurityConfig;
+import com.harry.security.core.web.AbstractSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,7 +20,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
-public class WebSecurityConfig extends AbstractWebSecurityConfig implements WebMvcConfigurer {
+public class WebSecurityConfig extends AbstractSecurityConfig implements WebMvcConfigurer {
 
     @Value("server.servlet.session.cookie.name")
     private String cookieName;
@@ -35,8 +36,9 @@ public class WebSecurityConfig extends AbstractWebSecurityConfig implements WebM
     private final InvalidSessionStrategy invalidSessionStrategy;
     private final SpringSessionBackedSessionRegistry redisSessionRegistry;
     private final LogoutSuccessHandler logoutSuccessHandler;
+    private final AuthorizeConfigManager authorizeConfigManager;
 
-    public WebSecurityConfig(PersistentTokenRepository persistentTokenRepository, SecurityProperties securityProperties, SmsCodeAuthenticationConfig smsCodeAuthenticationConfig, ValidateCodeConfig validateCodeSecurityConfig, SpringSocialConfigurer socialSecurityConfig, SessionInformationExpiredStrategy expiredSessionStrategy, InvalidSessionStrategy invalidSessionStrategy, SpringSessionBackedSessionRegistry redisSessionRegistry, LogoutSuccessHandler logoutSuccessHandler) {
+    public WebSecurityConfig(PersistentTokenRepository persistentTokenRepository, SecurityProperties securityProperties, SmsCodeAuthenticationConfig smsCodeAuthenticationConfig, ValidateCodeConfig validateCodeSecurityConfig, SpringSocialConfigurer socialSecurityConfig, SessionInformationExpiredStrategy expiredSessionStrategy, InvalidSessionStrategy invalidSessionStrategy, SpringSessionBackedSessionRegistry redisSessionRegistry, LogoutSuccessHandler logoutSuccessHandler, AuthorizeConfigManager authorizeConfigManager) {
         this.persistentTokenRepository = persistentTokenRepository;
         this.securityProperties = securityProperties;
         this.smsCodeAuthenticationConfig = smsCodeAuthenticationConfig;
@@ -46,6 +48,7 @@ public class WebSecurityConfig extends AbstractWebSecurityConfig implements WebM
         this.invalidSessionStrategy = invalidSessionStrategy;
         this.redisSessionRegistry = redisSessionRegistry;
         this.logoutSuccessHandler = logoutSuccessHandler;
+        this.authorizeConfigManager = authorizeConfigManager;
     }
 
 
@@ -93,6 +96,7 @@ public class WebSecurityConfig extends AbstractWebSecurityConfig implements WebM
                 .deleteCookies(cookieName)
                 .and().csrf().disable()
         ;
+        authorizeConfigManager.config(http.authorizeRequests());
     }
 
 }

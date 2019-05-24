@@ -102,7 +102,7 @@
     
 ## 认证授权组件：`auth-api`
 ***(授权组件依赖数据库组件,在引用认证授权组件时需参考配置数据源)***
-
+### Web端认证：`auth-web`
 - **验证码**
     1. 图形验证码
     - **application.properties配置**
@@ -154,6 +154,8 @@
         ```sh
          #社交账号认证处理路径
          harry.security.social.filterProcessUrl = /auth
+         #社交认证开关
+         harry.security.social.open=true
          
          ##QQ账号认证
          #{filterProcessUrl}/{providerId}组成qq回调路径
@@ -183,8 +185,8 @@
          #session失效时跳转的地址
          harry.security.browser.session.sessionInvalidUrl = /session/invalid.html
          
-         #Session超时时间(秒)
-         server.servlet.session.timeout= 300
+         #Session超时时间
+         server.servlet.session.timeout= 30m
          server.servlet.session.cookie.name=HARRY_SESSIONID
          server.servlet.session.cookie.http-only=true
          ```
@@ -208,5 +210,89 @@
                spring.redis.cluster.nodes=192.168.234.128:7001,192.168.234.128:7002,192.168.234.128:7003,192.168.234.128:7004,192.168.234.128:7005,192.168.234.128:7006
                ```
 - **授权**
+### App端认证：`auth-app`
+- **认证**
+    ```sh
+        #oauth app token 存储管理方式(redis/jwt)
+        harry.security.oauth2.storeType=redis
+    ```
+    - **redis 管理token store**
+        ```sh
+             #请求后返回
+                 {
+                     "access_token": "e9a10b90-db42-4ebc-8974-ba22c8f3d508",
+                     "token_type": "bearer",
+                     "refresh_token": "a46e4990-a751-4f88-a50a-fdb220332ad9",
+                     "expires_in": 43199,
+                     "scope": "user_info"
+                 }
+             #redis中存储信息
+                 192.168.234.128:7003> keys *
+                 1) "auth:e9a10b90-db42-4ebc-8974-ba22c8f3d508"
+                 2) "access_to_refresh:e9a10b90-db42-4ebc-8974-ba22c8f3d508"
+                 3) "refresh_to_access:a46e4990-a751-4f88-a50a-fdb220332ad9"
+                 4) "refresh_auth:a46e4990-a751-4f88-a50a-fdb220332ad9"
+                 5) "auth_to_access:920fdeaaff6e30750c009ef304061658"   
+        ```
+    - **JWT 管理token store**
+        ```sh
+             #请求后返回
+                 {
+                     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTg3MTIwOTQsInNpZ25pbmciOiJoYXJyeSIsInVzZXJfbmFtZSI6ImhhcnJ5IiwianRpIjoiYTc2N2NmNjEtNzg4MC00ZDg0LThlMjItMjUwYzk4ZTAyOTgxIiwiY2xpZW50X2lkIjoidXNlciIsInNjb3BlIjpbInVzZXJfaW5mbyJdfQ.ODKCYzG7PcqdqmWjS5KjYlhTrz8WBjXUI6LgqJZkAL0",
+                     "token_type": "bearer",
+                     "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJoYXJyeSIsInNjb3BlIjpbInVzZXJfaW5mbyJdLCJhdGkiOiJhNzY3Y2Y2MS03ODgwLTRkODQtOGUyMi0yNTBjOThlMDI5ODEiLCJleHAiOjE1NjEyNjA4OTQsInNpZ25pbmciOiJoYXJyeSIsImp0aSI6IjRhYTZlNTMyLTA4N2MtNGQ0Ny1iY2VmLTFhMWMyMGIxMGFjZCIsImNsaWVudF9pZCI6InVzZXIifQ.OpI1vscGcJlWa9oUHazL0H_kuyhGBbNumyM97OIDuO4",
+                     "expires_in": 43198,
+                     "scope": "user_info",
+                     "signing": "harry",
+                     "jti": "a767cf61-7880-4d84-8e22-250c98e02981"
+                 }   
+        ```
+    1. 图形验证码
+    ```sh
+        curl -X GET \
+            http://localhost/verifyCode/image \
+            -H 'deviceId: iphoneX'
+    ```  
+    2. 短信验证码
+    ```sh
+        curl -X GET \
+          'http://localhost/verifyCode/sms?mobile=17718376207' \
+          -H 'deviceId: iphoneX'
+    ```  
+    1. 表单认证(用户名/密码)
+    ```sh
+        #请求
+        curl -X POST \
+          'http://localhost/auth/form?username=harry&password=harry&imageCode=68ff' \
+          -H 'Authorization: Basic dXNlcjokMmEkMTAkZndhajJHV3NwU21WUDdNNGlaR3c1dVBNbFBJaG8vaDFwRE03NzdRMnEuYkxldXkyVVgwWlM=' \
+          -H 'deviceId: iphoneX'
+    ```
+    1. 绑定手机号认证
+    ```sh
+        curl -X POST \
+          'http://localhost/auth/mobile?mobile=17718376207&smsCode=0001' \
+          -H 'Authorization: Basic dXNlcjokMmEkMTAkZndhajJHV3NwU21WUDdNNGlaR3c1dVBNbFBJaG8vaDFwRE03NzdRMnEuYkxldXkyVVgwWlM=' \
+          -H 'deviceId: iphoneX'
+    ```
+    1. 社交登录认证
+    ```sh
+        curl -X GET \
+          'http://www.harry.com/auth/qq?code=8405A1B52C4E9BBD528C35037E8173AF&state=887f0215-76df-41c1-b3f6-98b29ffc3519' \
+          -H 'Authorization: Basic dXNlcjokMmEkMTAkZndhajJHV3NwU21WUDdNNGlaR3c1dVBNbFBJaG8vaDFwRE03NzdRMnEuYkxldXkyVVgwWlM='
+    ```
+    1. openID认证
+    ```sh
+        curl -X POST \
+          'http://localhost/auth/openId?openId=74CEB1C7E398A56A1FC16A34160EA49F&providerId=qq' \
+          -H 'Authorization: Basic dXNlcjokMmEkMTAkZndhajJHV3NwU21WUDdNNGlaR3c1dVBNbFBJaG8vaDFwRE03NzdRMnEuYkxldXkyVVgwWlM='
+    ```
+    1. OAuth2 授权码模式认证
+    ```sh
+        #第一步：获取授权码
+        localhost/oauth/authorize?response_type=code&client_id=user&redirect_uri=http://localhost:8089/oauth2/code/&scope=user_info
+        #第二部：根据授权码换取Token
+        curl -X POST \
+          'http://localhost/oauth/token?grant_type=authorization_code&client_id=user&client_secret=harry&code=QIREAs&redirect_uri=http://localhost:8089/oauth2/code/'
+    ```
  
  

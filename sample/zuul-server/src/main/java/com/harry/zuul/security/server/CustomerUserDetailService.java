@@ -1,6 +1,8 @@
 package com.harry.zuul.security.server;
 
-import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,14 +23,17 @@ import java.util.Collections;
  * @date 2019/5/12 16:14
  */
 @Component("userDetailsService")
-@AllArgsConstructor
 public class CustomerUserDetailService implements UserDetailsService, SocialUserDetailsService {
 
-    private final PasswordEncoder passwordEncoder;
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        logger.debug("查询用户信息："+username);
         //根据手机号查询数据库用户信息
 
         //将查询出的的用户信息组装并返回

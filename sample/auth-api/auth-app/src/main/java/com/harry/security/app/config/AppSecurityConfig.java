@@ -1,6 +1,6 @@
 package com.harry.security.app.config;
 
-import com.harry.security.core.web.AbstractWebSecurityConfig;
+import com.harry.security.core.web.AbstractSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @Order(1)
-public class AppSecurityConfig extends AbstractWebSecurityConfig {
+public class AppSecurityConfig extends AbstractSecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;

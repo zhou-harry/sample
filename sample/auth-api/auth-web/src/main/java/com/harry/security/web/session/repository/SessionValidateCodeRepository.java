@@ -1,4 +1,4 @@
-package com.harry.security.core.repository;
+package com.harry.security.web.session.repository;
 
 import com.harry.security.core.constant.ValidateCodeTypeEnum;
 import com.harry.security.core.validate.code.ValidateCode;

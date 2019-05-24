@@ -1,6 +1,6 @@
 package com.harry.security.core.validate.code;
 
-import com.harry.security.core.filter.ValidateCodeFilter;
+import com.harry.security.core.validate.code.filter.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

@@ -3,8 +3,6 @@ package com.harry.security.core.config;
 import com.harry.database.config.DynamicDataSourceConfig;
 import com.harry.database.config.StaticDataSourceConfig;
 import com.harry.security.core.properties.SecurityProperties;
-import com.harry.security.core.repository.SessionValidateCodeRepository;
-import com.harry.security.core.validate.code.ValidateCodeRepository;
 import com.harry.security.core.validate.code.sms.DefaultSmsCodeSender;
 import com.harry.security.core.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -77,10 +75,5 @@ public class SecurityCoreConfig {
         return new SpringSessionBackedSessionRegistry(sessionRepository);
     }
 
-    @Bean
-    @ConditionalOnMissingBean(ValidateCodeRepository.class)
-    public ValidateCodeRepository validateCodeRepository() {
-        return new SessionValidateCodeRepository();
-    }
 
 }

@@ -1,5 +1,7 @@
 package com.harry.zuul.security.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.stereotype.Component;
@@ -16,8 +18,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomerConnetionSignUp implements ConnectionSignUp {
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Override
     public String execute(Connection<?> connection) {
+        logger.debug("用户业务唯一标识:"+connection.getDisplayName());
         // 根据社交用户信息默认创建用户并返回用户业务唯一标识
         return connection.getDisplayName();
     }

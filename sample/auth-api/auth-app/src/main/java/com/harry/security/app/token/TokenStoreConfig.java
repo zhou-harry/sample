@@ -40,7 +40,7 @@ public class TokenStoreConfig {
         private SecurityProperties securityProperties;
 
         /**
-         * 转换器， 设置jwt密签key
+         * 转换器，设置jwt密签key
          *
          * @return
          */

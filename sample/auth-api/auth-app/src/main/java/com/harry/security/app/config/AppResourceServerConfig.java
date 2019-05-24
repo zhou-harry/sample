@@ -2,7 +2,7 @@ package com.harry.security.app.config;
 
 import com.harry.security.core.authentication.mobile.SmsCodeAuthenticationConfig;
 import com.harry.security.core.authentication.openid.OpenIdAuthenticationConfig;
-import com.harry.security.core.constant.SecurityConstants;
+import com.harry.security.core.authroize.manager.AuthorizeConfigManager;
 import com.harry.security.core.properties.SecurityProperties;
 import com.harry.security.core.validate.code.ValidateCodeConfig;
 import org.slf4j.Logger;
@@ -43,6 +43,8 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
     private SpringSocialConfigurer socialSecurityConfig;
     @Autowired
     private OpenIdAuthenticationConfig openIdAuthenticationConfig;
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
 
 
     @Override
@@ -58,17 +60,9 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .loginProcessingUrl(securityProperties.getBrowser().getSigninProcessUrlForm())
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
-                .and()
-                .authorizeRequests()//授权相关的配置
-                .antMatchers(SecurityConstants.MATCHERS).permitAll()
-                .antMatchers(securityProperties.getBrowser().getSignInUrl()).permitAll()
-                .antMatchers(securityProperties.getBrowser().getSignUpUrl()).permitAll()
-                .antMatchers(securityProperties.getBrowser().getSession().getSessionInvalidUrl()).permitAll()
-                .antMatchers("/user/regist").permitAll()
-                .anyRequest()
-                .authenticated()
                 .and().csrf().disable()
         ;
+        authorizeConfigManager.config(http.authorizeRequests());
     }
 
 }

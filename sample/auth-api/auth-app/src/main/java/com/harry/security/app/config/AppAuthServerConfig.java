@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * localhost:8081/auth/oauth/authorize?response_type=code&client_id=R2dpxQ3vPrtfgF72&redirect_uri=http://localhost:8082/login/oauth2/code/&scope=user_info
- * localhost/oauth/authorize?response_type=code&client_id=user&redirect_uri=http://localhost:8089/oauth2/code/&scope=user_info
  *
  * @author harry
  * @version 1.0
