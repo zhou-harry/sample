@@ -8,6 +8,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import static com.harry.security.core.constant.SecurityConstants.BASE_OAUTH2_AUTHORIZE;
+import static com.harry.security.core.constant.SecurityConstants.BASE_SSO_LOGIN;
+
 @Configuration
 @Order(1)
 public class AppSecurityConfig extends AbstractSecurityConfig {
@@ -17,13 +20,15 @@ public class AppSecurityConfig extends AbstractSecurityConfig {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.requestMatchers()
-                .antMatchers("/login", "/oauth/authorize")
+                .antMatchers(BASE_SSO_LOGIN, BASE_OAUTH2_AUTHORIZE)
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll();
+
     }
 
     /**
@@ -31,6 +36,7 @@ public class AppSecurityConfig extends AbstractSecurityConfig {
      * auth.jdbcAuthentication()
      * auth.inMemoryAuthentication()
      * auth.userDetailsService()
+     *
      * @param auth
      * @throws Exception
      */

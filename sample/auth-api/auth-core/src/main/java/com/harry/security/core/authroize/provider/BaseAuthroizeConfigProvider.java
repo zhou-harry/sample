@@ -27,6 +27,7 @@ public class BaseAuthroizeConfigProvider implements AuthorizeConfigProvider {
         //系统中需要放行的请求
         config
                 .antMatchers(SecurityConstants.MATCHERS).permitAll()
+                .antMatchers(securityProperties.getBrowser().getPermitUrl()).permitAll()
                 .antMatchers(
                         securityProperties.getBrowser().getSignInUrl(),
                         securityProperties.getBrowser().getSignUpUrl(),

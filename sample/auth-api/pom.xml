@@ -12,67 +12,15 @@
 
     <artifactId>auth-api</artifactId>
     <packaging>pom</packaging>
-    <description>权限认证API</description>
+    <description>OAuth2 API</description>
+
     <modules>
         <module>auth-core</module>
         <module>auth-web</module>
         <module>auth-app</module>
+        <module>auth-sso-client</module>
     </modules>
 
-    <dependencies>
 
-        <!-- spring-session -->
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-            <version>1.3.1.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
-        <!-- Session交给Redis管理，如果未加spring redis启动器的话则需要加lettuce-core并自己创建Redis factory -->
-        <!--<dependency>
-            <groupId>io.lettuce</groupId>
-            <artifactId>lettuce-core</artifactId>
-            <version>5.1.2.RELEASE</version>
-        </dependency>-->
-
-        <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-            <version>${security-oauth2}</version>
-        </dependency>
-
-        <!-- social -->
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-config</artifactId>
-            <version>${spring-social}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-core</artifactId>
-            <version>${spring-social}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-security</artifactId>
-            <version>${spring-social}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-web</artifactId>
-            <version>${spring-social}</version>
-        </dependency>
-        <!-- 依赖 Database API -->
-        <dependency>
-            <groupId>com.harry</groupId>
-            <artifactId>database-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-    </dependencies>
 
 </project>

@@ -15,6 +15,14 @@ public class SecurityConstants {
      */
     public static final String DEFAULT_SIGNOUT_PAGE_URL = "/signOut.html";
     /**
+     * App端默认注册跳转路径
+     */
+    public static final String DEFAULT_APP_SOCIAL_INFO = "/social/signup";
+    /**
+     * Web端第三方注册绑定信息
+     */
+    public static final String DEFAULT_WEB_SOCIAL_INFO = "/info";
+    /**
      * 默认的用户名密码登录请求处理url
      */
     public final static String DEFAULT_SIGNIN_PROCESS_URL_FORM = "/auth/form";
@@ -37,24 +45,14 @@ public class SecurityConstants {
 
     public static final String SESSION_KEY_IMAGE = "SESSION_KEY_IMAGE_CODE";
     public static final String SESSION_KEY_SMS = "SESSION_KEY_SMS_CODE";
-
     /**
      * 默认表单身份认证地址
      */
     public final static String DEFAULT_LOGIN_PAGE = "/auth/require";
-
     /**
      * 默认退出url
      */
     public final static String DEFAULT_LOGOUT_PAGE = "/signOut";
-
-    public final static String[] MATCHERS = {
-            DEFAULT_LOGIN_PAGE,
-            DEFAULT_SIGNIN_PROCESS_URL_MOBILE,
-            DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-            "/error"
-    };
-
     /**
      * 验证图片验证码时，http请求中默认的携带图片验证码信息的参数的名称
      */
@@ -84,7 +82,7 @@ public class SecurityConstants {
     /**
      * session失效时跳转的地址
      */
-    public static final String DEFAULT_SESSION_INVALID_URL="/session/invalid.html";
+    public static final String DEFAULT_SESSION_INVALID_URL = "/session/invalid.html";
 
     /**
      * 达到最大session时是否阻止新的登录请求，默认为false，不阻止，新的登录会将老的登录失效掉
@@ -112,4 +110,28 @@ public class SecurityConstants {
      * 默认OAuth2 Token存储方式(jwt/redis)
      */
     public static final String DEFAULT_OAUTH2_STORETYPE = "jwt";
+    /**
+     * 自定义实现SpringSocialConfigurer名称
+     */
+    public static final String BASE_SOCIAL_CONFIGURER = "baseSocialConfigurer";
+    /**
+     * SSO 授权认证请求地址
+     */
+    public static final String BASE_OAUTH2_AUTHORIZE = "/oauth/authorize";
+    /**
+     * SSO登录默认地址
+     */
+    public static final String BASE_SSO_LOGIN="/login";
+
+    public static final String BASE_ERROR="/error";
+
+
+    public final static String[] MATCHERS = {
+            BASE_ERROR,
+            BASE_SSO_LOGIN,
+            DEFAULT_LOGIN_PAGE,
+            DEFAULT_SIGNIN_PROCESS_URL_MOBILE,
+            DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+            BASE_OAUTH2_AUTHORIZE
+    };
 }

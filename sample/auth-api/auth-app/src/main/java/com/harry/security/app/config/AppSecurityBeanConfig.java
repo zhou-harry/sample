@@ -27,6 +27,7 @@ public class AppSecurityBeanConfig {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

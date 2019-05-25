@@ -13,9 +13,9 @@ import com.harry.security.core.constant.SecurityConstants;
 public class BrowserProperties {
 
     //表单身份认证地址
-    private String loginPage= SecurityConstants.DEFAULT_LOGIN_PAGE;
+    private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE;
     //账号退出地址
-    private String logoutPage=SecurityConstants.DEFAULT_LOGOUT_PAGE;
+    private String logoutPage = SecurityConstants.DEFAULT_LOGOUT_PAGE;
     //用户名密码登录请求处理url
     private String signinProcessUrlForm = SecurityConstants.DEFAULT_SIGNIN_PROCESS_URL_FORM;
     //手机验证码登录请求处理url
@@ -28,13 +28,15 @@ public class BrowserProperties {
     private String signUpUrl = SecurityConstants.DEFAULT_SIGNUP_PAGE_URL;
     //退出页面
     private String signOutUrl;
+    //自定义需要放行认证的地址
+    private String[] permitUrl = {};
     //登陆请求方式
     private AuthenticationResponseTypeEnum loginType = AuthenticationResponseTypeEnum.JSON;
     //默认记住账号密码时间(秒)
     private int rememberMeSeconds = SecurityConstants.DEFAULT_REMEMBERME_SECONDS;
 
 
-    private SessionProperties session=new SessionProperties();
+    private SessionProperties session = new SessionProperties();
 
 
     public int getRememberMeSeconds() {
@@ -123,5 +125,13 @@ public class BrowserProperties {
 
     public void setSigninProcessUrlOpenId(String signinProcessUrlOpenId) {
         this.signinProcessUrlOpenId = signinProcessUrlOpenId;
+    }
+
+    public String[] getPermitUrl() {
+        return permitUrl;
+    }
+
+    public void setPermitUrl(String[] permitUrl) {
+        this.permitUrl = permitUrl;
     }
 }

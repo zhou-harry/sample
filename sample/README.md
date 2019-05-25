@@ -289,7 +289,7 @@
     1. OAuth2 授权码模式认证
     ```sh
         #第一步：获取授权码
-        localhost/oauth/authorize?response_type=code&client_id=user&redirect_uri=http://localhost:8089/oauth2/code/&scope=user_info
+        localhost/oauth/authorize?response_type=code&client_id=user&redirect_uri=http://localhost:8089/sso/oauth2/code/&scope=user_info
         #第二部：根据授权码换取Token
         curl -X POST \
           'http://localhost/oauth/token?grant_type=authorization_code&client_id=user&client_secret=harry&code=QIREAs&redirect_uri=http://localhost:8089/oauth2/code/'

@@ -2,12 +2,12 @@ package com.harry.security.web.config;
 
 import com.harry.security.core.authentication.mobile.SmsCodeAuthenticationConfig;
 import com.harry.security.core.authroize.manager.AuthorizeConfigManager;
-import com.harry.security.core.constant.SecurityConstants;
 import com.harry.security.core.properties.SecurityProperties;
 import com.harry.security.core.validate.code.ValidateCodeConfig;
 import com.harry.security.core.web.AbstractSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +20,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
+@Order(1)
 public class WebSecurityConfig extends AbstractSecurityConfig implements WebMvcConfigurer {
 
     @Value("server.servlet.session.cookie.name")
@@ -79,16 +80,6 @@ public class WebSecurityConfig extends AbstractSecurityConfig implements WebMvcC
                 .expiredSessionStrategy(expiredSessionStrategy)
                 .sessionRegistry(redisSessionRegistry)
                 .and()
-                .and()//授权相关的配置
-                .authorizeRequests()
-                .antMatchers(SecurityConstants.MATCHERS).permitAll()
-                .antMatchers(securityProperties.getBrowser().getSignInUrl()).permitAll()
-                .antMatchers(securityProperties.getBrowser().getSignUpUrl()).permitAll()
-                .antMatchers(securityProperties.getBrowser().getSignOutUrl()).permitAll()
-                .antMatchers(securityProperties.getBrowser().getSession().getSessionInvalidUrl()).permitAll()
-                .antMatchers("/user/regist").permitAll()
-                .anyRequest()
-                .authenticated()
                 .and()//登出
                 .logout()
                 .logoutUrl(securityProperties.getBrowser().getLogoutPage())

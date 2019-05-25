@@ -1,0 +1,26 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /sso
+spring:
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          custom-client:
+            client-name: Auth Server
+            client-id: user
+            client-secret: harry
+            scope: user_info
+            redirect-uri-template: http://localhost:8089/sso/login/oauth2/code/
+            client-authentication-method: basic
+            authorization-grant-type: authorization_code
+            provider: custom-provider
+        provider:
+          custom-provider:
+            token-uri: http://www.harry.com/oauth/token
+            authorization-uri: http://www.harry.com/oauth/authorize
+            user-info-uri: http://www.harry.com/user/principal
+            user-name-attribute: name

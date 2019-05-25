@@ -1,7 +1,7 @@
 package com.harry.security.app.repository;
 
 import com.harry.security.core.constant.ValidateCodeTypeEnum;
-import com.harry.security.core.exception.ValidateCodeException;
+import com.harry.security.core.util.AuthUtil;
 import com.harry.security.core.validate.code.ValidateCode;
 import com.harry.security.core.validate.code.ValidateCodeRepository;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,7 +16,6 @@ import org.springframework.web.context.request.ServletWebRequest;
  */
 public class RedisValidateCodeRepository implements ValidateCodeRepository {
 
-    public static final String DEVICEID_HEADER_NAME = "deviceId";
 
     public static final String VALIDATECODE_REDISKEY_PREFIX = "code:";
 
@@ -47,17 +46,10 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
     }
 
     private String getRedisKey(ServletWebRequest request, ValidateCodeTypeEnum codeType) {
-        String deviceId = getDeviceId(request);
+        String deviceId = AuthUtil.getDeviceId(request);
         StringBuilder buff = new StringBuilder(VALIDATECODE_REDISKEY_PREFIX);
         buff.append(codeType).append(":").append(deviceId);
         return buff.toString();
     }
 
-    private String getDeviceId(ServletWebRequest request) {
-        String deviceId = request.getHeader(DEVICEID_HEADER_NAME);
-        if (deviceId == null) {
-            throw new ValidateCodeException("缺少deviceId");
-        }
-        return deviceId;
-    }
 }

@@ -81,9 +81,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
         return new ConnectController(connectionFactoryLocator, connectionRepository);
     }
 
-    @Bean
+    @Bean(SecurityConstants.BASE_SOCIAL_CONFIGURER)
     public SpringSocialConfigurer socialSecurityConfig() {
-        CustomerSocialConfigurer configurer = new CustomerSocialConfigurer(
+        BaseSocialConfigurer configurer = new BaseSocialConfigurer(
                 securityProperties.getSocial().getFilterProcessUrl(),
                 socialAuthenticationFilterPostProcessor
         );
