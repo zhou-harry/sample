@@ -3,13 +3,14 @@ package com.harry.security.core.config;
 import com.harry.database.config.DynamicDataSourceConfig;
 import com.harry.database.config.StaticDataSourceConfig;
 import com.harry.security.core.authorize.repository.AuthorizeUrlRepository;
-import com.harry.security.core.authorize.repository.BaseAuthorizeUrlRepository;
+import com.harry.security.core.authorize.server.AuthorizeServer;
 import com.harry.security.core.authorize.server.BaseAuthorizeServer;
 import com.harry.security.core.properties.SecurityProperties;
 import com.harry.security.core.validate.code.sms.DefaultSmsCodeSender;
 import com.harry.security.core.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -68,11 +69,6 @@ public class SecurityCoreConfig {
         return new DefaultSmsCodeSender();
     }
 
-    @Bean
-    @ConditionalOnMissingBean(AuthorizeUrlRepository.class)
-    public AuthorizeUrlRepository authorizeUrlRepository() {
-        return new BaseAuthorizeUrlRepository();
-    }
 
     /**
      * 此处容器会将RedisOperationsSessionRepository给注入进来
@@ -88,7 +84,8 @@ public class SecurityCoreConfig {
     }
 
     @Bean("authorizeServer")
-    public BaseAuthorizeServer authorizeServer() {
+    @ConditionalOnBean(AuthorizeUrlRepository.class)
+    public AuthorizeServer authorizeServer() {
         return new BaseAuthorizeServer();
     }
 

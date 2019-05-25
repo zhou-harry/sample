@@ -1,6 +1,7 @@
 package com.harry.security.core.authorize.manager;
 
 import com.harry.security.core.authorize.provider.AuthorizeConfigProvider;
+import com.harry.security.core.authorize.server.AuthorizeServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
@@ -20,6 +21,8 @@ public class BaseAuthorizeConfigManager implements AuthorizeConfigManager {
 
     @Autowired
     private List<AuthorizeConfigProvider> authorizeConfigProviders;
+    @Autowired(required = false)
+    private AuthorizeServer authorizeServer;
 
     @Override
     public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
@@ -27,12 +30,12 @@ public class BaseAuthorizeConfigManager implements AuthorizeConfigManager {
         for (AuthorizeConfigProvider authorizeConfigProvider : authorizeConfigProviders) {
             authorizeConfigProvider.config(config);
         }
-        /**
-         * 如果有且仅有基础授权配置BaseAuthroizeConfigProvider，那么authorizeConfigProviders==1
-         */
-        if (authorizeConfigProviders.size() == 1) {
+
+        if (authorizeServer == null) {
             // 其它所有请求需要身份验证
             config.anyRequest().authenticated();
+        } else {
+            config.anyRequest().access("@authorizeServer.hasPermission(request, authentication)");
         }
 
     }

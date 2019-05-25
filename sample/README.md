@@ -198,7 +198,7 @@
               ```
          1. 集群Session管理
             - 此处需要指定`sessionRegistry`为`redisSessionRegistry`
-            ```java
+            ```sh
                 http.sessionManagement().sessionRegistry(redisSessionRegistry)
             ```
              ```sh
@@ -209,7 +209,6 @@
                #集群Redis
                spring.redis.cluster.nodes=192.168.234.128:7001,192.168.234.128:7002,192.168.234.128:7003,192.168.234.128:7004,192.168.234.128:7005,192.168.234.128:7006
                ```
-- **授权**
 ### App端认证：`auth-app`
 - **认证**
     ```sh
@@ -294,5 +293,18 @@
         curl -X POST \
           'http://localhost/oauth/token?grant_type=authorization_code&client_id=user&client_secret=harry&code=QIREAs&redirect_uri=http://localhost:8089/oauth2/code/'
     ```
- 
+ #### 授权
+ **(实现下面授权url加载接口，并注册到spring容器即可实现url授权逻辑)***
+ ```java
+     /**
+      * @author harry
+      * @version 1.0
+      * @title: AuthorizeUrlRepository
+      * @description: 加载用户所拥有权限的所有url
+      * @date 2019/5/25 19:30
+      */
+     public interface AuthorizeUrlRepository {
+         Set<String> loadUrlByUsername(String username);
+     }
+ ```
  
