@@ -1,6 +1,6 @@
-package com.harry.security.core.authroize.manager;
+package com.harry.security.core.authorize.manager;
 
-import com.harry.security.core.authroize.provider.AuthorizeConfigProvider;
+import com.harry.security.core.authorize.provider.AuthorizeConfigProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
@@ -12,11 +12,11 @@ import java.util.List;
  * @author harry
  * @version 1.0
  * @title: BaseAuthorizeConfigManager
- * @description: TODO
+ * @description: 授权配置管理器基本实现
  * @date 2019/5/24 15:31
  */
 @Component
-public class BaseAuthorizeConfigManager implements AuthorizeConfigManager{
+public class BaseAuthorizeConfigManager implements AuthorizeConfigManager {
 
     @Autowired
     private List<AuthorizeConfigProvider> authorizeConfigProviders;
@@ -27,8 +27,13 @@ public class BaseAuthorizeConfigManager implements AuthorizeConfigManager{
         for (AuthorizeConfigProvider authorizeConfigProvider : authorizeConfigProviders) {
             authorizeConfigProvider.config(config);
         }
-        // 其它所有请求需要身份验证
-		config.anyRequest().authenticated();
+        /**
+         * 如果有且仅有基础授权配置BaseAuthroizeConfigProvider，那么authorizeConfigProviders==1
+         */
+        if (authorizeConfigProviders.size() == 1) {
+            // 其它所有请求需要身份验证
+            config.anyRequest().authenticated();
+        }
 
     }
 }

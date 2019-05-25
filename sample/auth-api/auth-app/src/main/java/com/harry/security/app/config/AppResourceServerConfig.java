@@ -2,7 +2,7 @@ package com.harry.security.app.config;
 
 import com.harry.security.core.authentication.mobile.SmsCodeAuthenticationConfig;
 import com.harry.security.core.authentication.openid.OpenIdAuthenticationConfig;
-import com.harry.security.core.authroize.manager.AuthorizeConfigManager;
+import com.harry.security.core.authorize.manager.AuthorizeConfigManager;
 import com.harry.security.core.properties.SecurityProperties;
 import com.harry.security.core.validate.code.ValidateCodeConfig;
 import org.slf4j.Logger;
@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.social.security.SpringSocialConfigurer;
@@ -45,6 +47,8 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
     private OpenIdAuthenticationConfig openIdAuthenticationConfig;
     @Autowired
     private AuthorizeConfigManager authorizeConfigManager;
+    @Autowired
+    private OAuth2WebSecurityExpressionHandler expressionHandler;
 
 
     @Override
@@ -63,6 +67,11 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and().csrf().disable()
         ;
         authorizeConfigManager.config(http.authorizeRequests());
+    }
+
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        resources.expressionHandler(expressionHandler);
     }
 
 }

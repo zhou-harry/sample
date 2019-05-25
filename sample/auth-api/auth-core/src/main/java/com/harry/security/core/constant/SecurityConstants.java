@@ -121,9 +121,9 @@ public class SecurityConstants {
     /**
      * SSO登录默认地址
      */
-    public static final String BASE_SSO_LOGIN="/login";
+    public static final String BASE_SSO_LOGIN = "/login";
 
-    public static final String BASE_ERROR="/error";
+    public static final String BASE_ERROR = "/error";
 
 
     public final static String[] MATCHERS = {

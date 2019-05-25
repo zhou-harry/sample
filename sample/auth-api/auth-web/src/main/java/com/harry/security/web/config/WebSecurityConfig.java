@@ -1,7 +1,7 @@
 package com.harry.security.web.config;
 
 import com.harry.security.core.authentication.mobile.SmsCodeAuthenticationConfig;
-import com.harry.security.core.authroize.manager.AuthorizeConfigManager;
+import com.harry.security.core.authorize.manager.AuthorizeConfigManager;
 import com.harry.security.core.properties.SecurityProperties;
 import com.harry.security.core.validate.code.ValidateCodeConfig;
 import com.harry.security.core.web.AbstractSecurityConfig;

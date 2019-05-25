@@ -45,4 +45,9 @@ public class UserController {
         return principal;
     }
 
+    @GetMapping("/test/authorize")
+    public String authorize() {
+        return "有权限。。。";
+    }
+
 }

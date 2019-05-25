@@ -2,6 +2,9 @@ package com.harry.security.core.config;
 
 import com.harry.database.config.DynamicDataSourceConfig;
 import com.harry.database.config.StaticDataSourceConfig;
+import com.harry.security.core.authorize.repository.AuthorizeUrlRepository;
+import com.harry.security.core.authorize.repository.BaseAuthorizeUrlRepository;
+import com.harry.security.core.authorize.server.BaseAuthorizeServer;
 import com.harry.security.core.properties.SecurityProperties;
 import com.harry.security.core.validate.code.sms.DefaultSmsCodeSender;
 import com.harry.security.core.validate.code.sms.SmsCodeSender;
@@ -10,10 +13,12 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.session.FindByIndexNameSessionRepository;
@@ -63,9 +68,16 @@ public class SecurityCoreConfig {
         return new DefaultSmsCodeSender();
     }
 
+    @Bean
+    @ConditionalOnMissingBean(AuthorizeUrlRepository.class)
+    public AuthorizeUrlRepository authorizeUrlRepository() {
+        return new BaseAuthorizeUrlRepository();
+    }
+
     /**
      * 此处容器会将RedisOperationsSessionRepository给注入进来
-     *(spring redis启动器的场景有效，非启动器环境的话需要显示创建：RedisOperationsSessionRepository)
+     * (spring redis启动器的场景有效，非启动器环境的话需要显示创建：RedisOperationsSessionRepository)
+     *
      * @param sessionRepository
      * @return
      */
@@ -75,5 +87,15 @@ public class SecurityCoreConfig {
         return new SpringSessionBackedSessionRegistry(sessionRepository);
     }
 
+    @Bean("authorizeServer")
+    public BaseAuthorizeServer authorizeServer() {
+        return new BaseAuthorizeServer();
+    }
 
+    @Bean
+    public OAuth2WebSecurityExpressionHandler oAuth2WebSecurityExpressionHandler(ApplicationContext applicationContext) {
+        OAuth2WebSecurityExpressionHandler expressionHandler = new OAuth2WebSecurityExpressionHandler();
+        expressionHandler.setApplicationContext(applicationContext);
+        return expressionHandler;
+    }
 }
