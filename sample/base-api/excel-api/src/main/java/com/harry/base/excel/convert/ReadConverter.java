@@ -1,6 +1,6 @@
 package com.harry.base.excel.convert;
 
-import com.harry.base.excel.exception.ExcelKitReadConverterException;
+import com.harry.base.excel.exception.ExcelReadConverterException;
 
 /**
  * @author harry
@@ -15,6 +15,6 @@ public interface ReadConverter {
      * @param value 当前单元格的值
      * @return 转换后的值
      */
-    Object convert(Object value) throws ExcelKitReadConverterException;
+    Object convert(Object value) throws ExcelReadConverterException;
 
 }

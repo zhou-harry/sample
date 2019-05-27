@@ -1,6 +1,6 @@
 package com.harry.base.excel.convert;
 
-import com.harry.base.excel.exception.ExcelKitWriteConverterException;
+import com.harry.base.excel.exception.ExcelWriteConverterException;
 
 /**
  * @author harry
@@ -14,5 +14,5 @@ public interface WriteConverter {
      * @param value 当前单元格的值
      * @return 转换后的值
      */
-    String convert(Object value) throws ExcelKitWriteConverterException;
+    String convert(Object value) throws ExcelWriteConverterException;
 }

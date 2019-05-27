@@ -1,7 +1,7 @@
 package com.harry.base.excel.xlsx;
 
 import com.harry.base.excel.convert.WriteConverter;
-import com.harry.base.excel.exception.ExcelKitRuntimeException;
+import com.harry.base.excel.exception.ExcelRuntimeException;
 import com.harry.base.excel.pojo.ExcelMapping;
 import com.harry.base.excel.pojo.ExcelProperty;
 import com.harry.base.excel.util.DateUtil;
@@ -115,7 +115,7 @@ public class ExcelXlsxWriter {
         try {
             cellValue = BeanUtils.getProperty(entity, property.getName());
         } catch (Throwable e) {
-            throw new ExcelKitRuntimeException(e);
+            throw new ExcelRuntimeException(e);
         }
         if (null != cellValue) {
             String dateFormat = property.getDateFormat();
@@ -139,7 +139,7 @@ public class ExcelXlsxWriter {
                 try {
                     cellValue = POIUtil.convertByExp(cellValue, writeConverterExp);
                 } catch (Throwable e) {
-                    throw new ExcelKitRuntimeException(e);
+                    throw new ExcelRuntimeException(e);
                 }
             } else if (null != writeConverter) {
                 cell.setCellValue(writeConverter.convert(cellValue));

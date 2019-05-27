@@ -1,6 +1,6 @@
 package com.harry.base.excel.util;
 
-import com.harry.base.excel.exception.ExcelKitRuntimeException;
+import com.harry.base.excel.exception.ExcelRuntimeException;
 import com.harry.base.excel.repository.ExcelRepository;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -71,7 +71,7 @@ public class POIUtil {
             String[] datasource = repository.resource();
             if (null != datasource && datasource.length > 0) {
                 if (datasource.length > 100) {
-                    throw new ExcelKitRuntimeException("Options item too much.");
+                    throw new ExcelRuntimeException("Options item too much.");
                 }
 
                 DataValidationHelper validationHelper = sheet.getDataValidationHelper();
@@ -172,10 +172,10 @@ public class POIUtil {
     public static void checkExcelFile(File file) {
         String filename = null != file ? file.getAbsolutePath() : null;
         if (null == filename || !file.exists()) {
-            throw new ExcelKitRuntimeException("Excel file[" + filename + "] does not exist.");
+            throw new ExcelRuntimeException("Excel file[" + filename + "] does not exist.");
         }
         if (!filename.endsWith(Const.XLSX_SUFFIX)) {
-            throw new ExcelKitRuntimeException(
+            throw new ExcelRuntimeException(
                     "[" + filename + "]Only .xlsx formatted files are supported.");
         }
     }

@@ -1,7 +1,7 @@
 package com.harry.sample.client.excel.convert;
 
 import com.harry.base.excel.convert.WriteConverter;
-import com.harry.base.excel.exception.ExcelKitWriteConverterException;
+import com.harry.base.excel.exception.ExcelWriteConverterException;
 
 /**
  * @author harry
@@ -16,10 +16,10 @@ public class CustomizeFieldWriteConverter implements WriteConverter {
      *
      * @param value 当前单元格的值
      * @return
-     * @throws ExcelKitWriteConverterException
+     * @throws ExcelWriteConverterException
      */
     @Override
-    public String convert(Object value) throws ExcelKitWriteConverterException {
+    public String convert(Object value) throws ExcelWriteConverterException {
         return ("ID_" + value);
     }
 }

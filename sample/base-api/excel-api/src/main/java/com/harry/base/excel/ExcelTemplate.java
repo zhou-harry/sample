@@ -1,6 +1,6 @@
 package com.harry.base.excel;
 
-import com.harry.base.excel.exception.ExcelKitRuntimeException;
+import com.harry.base.excel.exception.ExcelRuntimeException;
 import com.harry.base.excel.factory.ExcelMappingFactory;
 import com.harry.base.excel.handler.ExcelReadHandler;
 import com.harry.base.excel.pojo.ExcelMapping;
@@ -50,7 +50,7 @@ public class ExcelTemplate {
 
     public void downXlsx(List<?> data, boolean isTemplate) {
         if (!mCurrentOptionMode.equals(Const.MODE_EXPORT)) {
-            throw new ExcelKitRuntimeException(
+            throw new ExcelRuntimeException(
                     "请使用com.wuwenze.poi.ExcelTemplate.$Export(Class<?> clazz, HttpServletResponse response)构造器初始化参数.");
         }
         try {
@@ -62,7 +62,7 @@ public class ExcelTemplate {
                     : (excelMapping.getName() + "-导出结果.xlsx");
             POIUtil.download(workbook, mResponse, URLEncoder.encode(fileName, Const.ENCODING));
         } catch (Throwable e) {
-            throw new ExcelKitRuntimeException("downXlsx error", e);
+            throw new ExcelRuntimeException("downXlsx error", e);
         }
     }
 
@@ -81,7 +81,7 @@ public class ExcelTemplate {
 
     public void writeXlsx(List<?> data, boolean isTemplate) {
         if (!mCurrentOptionMode.equals(Const.MODE_BUILD)) {
-            throw new ExcelKitRuntimeException(
+            throw new ExcelRuntimeException(
                     "请使用com.wuwenze.poi.ExcelTemplate.$Builder(Class<?> clazz, OutputStream outputStream)构造器初始化参数.");
         }
         ExcelMapping excelMapping = ExcelMappingFactory.get(mClass);
@@ -116,7 +116,7 @@ public class ExcelTemplate {
             InputStream inputStream = new FileInputStream(excelFile);
             readXlsx(inputStream, sheetIndex, excelReadHandler);
         } catch (Throwable e) {
-            throw new ExcelKitRuntimeException("readXlsx error", e);
+            throw new ExcelRuntimeException("readXlsx error", e);
         }
     }
 
@@ -127,7 +127,7 @@ public class ExcelTemplate {
     public void readXlsx(InputStream inputStream, Integer sheetIndex,
                          ExcelReadHandler<?> excelReadHandler) {
         if (!mCurrentOptionMode.equals(Const.MODE_IMPORT)) {
-            throw new ExcelKitRuntimeException(
+            throw new ExcelRuntimeException(
                     "请使用com.wuwenze.poi.ExcelTemplate.$Import(Class<?> clazz)构造器初始化参数.");
         }
         ExcelMapping excelMapping = ExcelMappingFactory.get(mClass);

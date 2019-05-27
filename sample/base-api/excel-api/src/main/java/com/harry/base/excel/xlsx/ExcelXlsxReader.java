@@ -3,9 +3,9 @@ package com.harry.base.excel.xlsx;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.harry.base.excel.convert.ReadConverter;
-import com.harry.base.excel.exception.ExcelKitEncounterNoNeedXmlException;
-import com.harry.base.excel.exception.ExcelKitReadConverterException;
-import com.harry.base.excel.exception.ExcelKitRuntimeException;
+import com.harry.base.excel.exception.ExcelEncounterNoNeedXmlException;
+import com.harry.base.excel.exception.ExcelReadConverterException;
+import com.harry.base.excel.exception.ExcelRuntimeException;
 import com.harry.base.excel.handler.ExcelReadHandler;
 import com.harry.base.excel.pojo.ExcelErrorField;
 import com.harry.base.excel.pojo.ExcelMapping;
@@ -79,19 +79,19 @@ public class ExcelXlsxReader extends DefaultHandler {
         mExcelReadHandler = excelReadHandler;
     }
 
-    public void process(String fileName) throws ExcelKitRuntimeException {
+    public void process(String fileName) throws ExcelRuntimeException {
         try {
             processAll(OPCPackage.open(fileName));
         } catch (Exception e) {
-            throw new ExcelKitRuntimeException("Only .xlsx formatted files are supported.", e);
+            throw new ExcelRuntimeException("Only .xlsx formatted files are supported.", e);
         }
     }
 
-    public void process(InputStream in) throws ExcelKitRuntimeException {
+    public void process(InputStream in) throws ExcelRuntimeException {
         try {
             processAll(OPCPackage.open(in));
         } catch (Exception e) {
-            throw new ExcelKitRuntimeException("Only .xlsx formatted files are supported.", e);
+            throw new ExcelRuntimeException("Only .xlsx formatted files are supported.", e);
         }
     }
 
@@ -113,19 +113,19 @@ public class ExcelXlsxReader extends DefaultHandler {
         pkg.close();
     }
 
-    public void process(String fileName, int sheetIndex) throws ExcelKitRuntimeException {
+    public void process(String fileName, int sheetIndex) throws ExcelRuntimeException {
         try {
             processBySheet(sheetIndex, OPCPackage.open(fileName));
         } catch (Exception e) {
-            throw new ExcelKitRuntimeException("Only .xlsx formatted files are supported.", e);
+            throw new ExcelRuntimeException("Only .xlsx formatted files are supported.", e);
         }
     }
 
-    public void process(InputStream in, int sheetIndex) throws ExcelKitRuntimeException {
+    public void process(InputStream in, int sheetIndex) throws ExcelRuntimeException {
         try {
             processBySheet(sheetIndex, OPCPackage.open(in));
         } catch (Exception e) {
-            throw new ExcelKitRuntimeException("Only .xlsx formatted files are supported.", e);
+            throw new ExcelRuntimeException("Only .xlsx formatted files are supported.", e);
         }
     }
 
@@ -142,7 +142,7 @@ public class ExcelXlsxReader extends DefaultHandler {
         InputSource sheetSource = new InputSource(sheet);
         try {
             parser.parse(sheetSource);
-        } catch (ExcelKitEncounterNoNeedXmlException e) {
+        } catch (ExcelEncounterNoNeedXmlException e) {
             sheet = r.getSheet(Const.SAX_RID_PREFIX + (sheetIndex + 3));
             sheetSource = new InputSource(sheet);
             parser.parse(sheetSource);
@@ -156,7 +156,7 @@ public class ExcelXlsxReader extends DefaultHandler {
             String uri, String localName, String name, Attributes attributes)
             throws SAXException {
         if ("sst".equals(name) || "styleSheet".equals(name)) {
-            throw new ExcelKitEncounterNoNeedXmlException();
+            throw new ExcelEncounterNoNeedXmlException();
         }
         // c => 单元格
         if (Const.SAX_C_ELEMENT.equals(name)) {
@@ -434,7 +434,7 @@ public class ExcelXlsxReader extends DefaultHandler {
             try {
                 return this.buildCheckAndConvertPropertyRetMap(//
                         cellIndex, property, readConverter.convert(propertyValue), null);
-            } catch (ExcelKitReadConverterException e) {
+            } catch (ExcelReadConverterException e) {
                 return this.buildCheckAndConvertPropertyRetMap(//
                         cellIndex, property, propertyValue, e.getMessage());
             }

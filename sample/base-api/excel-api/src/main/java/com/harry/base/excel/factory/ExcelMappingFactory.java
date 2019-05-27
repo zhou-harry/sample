@@ -6,10 +6,10 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.harry.base.excel.annotation.Excel;
 import com.harry.base.excel.annotation.ExcelField;
-import com.harry.base.excel.exception.ExcelKitAnnotationAnalyzeException;
-import com.harry.base.excel.exception.ExcelKitConfigAnalyzeFailureException;
-import com.harry.base.excel.exception.ExcelKitConfigFileNotFoundException;
-import com.harry.base.excel.exception.ExcelKitXmlAnalyzeException;
+import com.harry.base.excel.exception.ExcelAnnotationAnalyzeException;
+import com.harry.base.excel.exception.ExcelConfigAnalyzeFailureException;
+import com.harry.base.excel.exception.ExcelConfigFileNotFoundException;
+import com.harry.base.excel.exception.ExcelXmlAnalyzeException;
 import com.harry.base.excel.pojo.ExcelMapping;
 import com.harry.base.excel.pojo.ExcelProperty;
 import com.harry.base.excel.util.BeanUtil;
@@ -62,7 +62,7 @@ public class ExcelMappingFactory {
         try {
             return ExcelMappingFactory.mExcelMappingLoadingCache.get(clazz);
         } catch (Exception e) {
-            throw new ExcelKitConfigAnalyzeFailureException(e);
+            throw new ExcelConfigAnalyzeFailureException(e);
         }
     }
 
@@ -74,7 +74,7 @@ public class ExcelMappingFactory {
         try {
             excelMapping = ExcelMappingFactory.loadExcelMappingByXml(clazz.getName());
         } catch (Exception e) {
-            xmlConfigFileNotFound = e instanceof ExcelKitConfigFileNotFoundException;
+            xmlConfigFileNotFound = e instanceof ExcelConfigFileNotFoundException;
             loadExcelMappingFailedMessage = e.getMessage();
         }
         // 2. 从注解加载配置信息 (当配置文件未找到时)
@@ -87,7 +87,7 @@ public class ExcelMappingFactory {
         }
         // 3. 加载配置信息失败.
         if (null == excelMapping && null != loadExcelMappingFailedMessage) {
-            throw new ExcelKitConfigAnalyzeFailureException(loadExcelMappingFailedMessage);
+            throw new ExcelConfigAnalyzeFailureException(loadExcelMappingFailedMessage);
         }
         return excelMapping;
     }
@@ -97,7 +97,7 @@ public class ExcelMappingFactory {
         ExcelMapping excelMapping = new ExcelMapping();
         Excel excel = clazz.getAnnotation(Excel.class);
         if (null == excel) {
-            throw new ExcelKitAnnotationAnalyzeException(
+            throw new ExcelAnnotationAnalyzeException(
                     "[" + clazz.getName() + "] @Excel annotations not found.");
         }
         excelMapping.setName(excel.value());
@@ -134,7 +134,7 @@ public class ExcelMappingFactory {
             }
         }
         if (propertyList.isEmpty()) {
-            throw new ExcelKitAnnotationAnalyzeException(
+            throw new ExcelAnnotationAnalyzeException(
                     "[" + clazz.getName() + "] @ExcelField annotations not found.");
         }
         excelMapping.setPropertyList(propertyList);
@@ -147,19 +147,19 @@ public class ExcelMappingFactory {
                 .getFileByClasspath(String.format("excel-mapping/%s.xml", clazzName));
         String configFile = "classpath:excel-mapping/" + config.getName();
         if (!config.exists()) {
-            throw new ExcelKitConfigFileNotFoundException(
+            throw new ExcelConfigFileNotFoundException(
                     "[" + configFile + "] not found.");
         }
         SAXReader reader = new SAXReader();
         Document document = reader.read(config);
         Element rootElement = document.getRootElement();
         if (!"excel-mapping".equals(rootElement.getName())) {
-            throw new ExcelKitXmlAnalyzeException(
+            throw new ExcelXmlAnalyzeException(
                     "[" + configFile + "] <excel-mapping /> not found.");
         }
         Attribute nameAttr = rootElement.attribute("name");
         if (null == nameAttr) {
-            throw new ExcelKitXmlAnalyzeException(
+            throw new ExcelXmlAnalyzeException(
                     "[" + configFile + "] <excel-mapping> attribute \"name\"  not found.");
         }
         excelMapping.setName(nameAttr.getValue());
@@ -187,7 +187,7 @@ public class ExcelMappingFactory {
             }
         }
         if (propertyList.isEmpty()) {
-            throw new ExcelKitXmlAnalyzeException(
+            throw new ExcelXmlAnalyzeException(
                     "[" + configFile + "] <property /> not found.");
         }
         excelMapping.setPropertyList(propertyList);
@@ -203,7 +203,7 @@ public class ExcelMappingFactory {
             }
         }
         if (containsCount != ExcelMappingFactory.mRequeridAttrs.size()) {
-            throw new ExcelKitXmlAnalyzeException(
+            throw new ExcelXmlAnalyzeException(
                     "[" + configFile + "] <property /> missing required attributes: "
                             + ExcelMappingFactory.mRequeridAttrs
                             .toString());
@@ -218,13 +218,13 @@ public class ExcelMappingFactory {
             try {
                 return Class.forName(value).newInstance();
             } catch (Exception e) {
-                throw new ExcelKitXmlAnalyzeException(messageTemplate + e.getMessage());
+                throw new ExcelXmlAnalyzeException(messageTemplate + e.getMessage());
             }
         }
         if ("writeConverterExp".equals(name) || "readConverterExp".equals(name)) {
             for (String item : value.split(",")) {
                 if (!item.contains("=")) {
-                    throw new ExcelKitXmlAnalyzeException(messageTemplate
+                    throw new ExcelXmlAnalyzeException(messageTemplate
                             + "Converter Expression error, Reference:[\"1=男,2=女\" or \"男=1,女=2\"].");
                 }
             }
