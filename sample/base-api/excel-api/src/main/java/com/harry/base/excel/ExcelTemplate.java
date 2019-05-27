@@ -51,7 +51,7 @@ public class ExcelTemplate {
     public void downXlsx(List<?> data, boolean isTemplate) {
         if (!mCurrentOptionMode.equals(Const.MODE_EXPORT)) {
             throw new ExcelRuntimeException(
-                    "请使用com.wuwenze.poi.ExcelTemplate.$Export(Class<?> clazz, HttpServletResponse response)构造器初始化参数.");
+                    "请使用com.harry.base.excel.ExcelTemplate.$Export(Class<?> clazz, HttpServletResponse response)构造器初始化参数.");
         }
         try {
             ExcelMapping excelMapping = ExcelMappingFactory.get(mClass);
@@ -82,7 +82,7 @@ public class ExcelTemplate {
     public void writeXlsx(List<?> data, boolean isTemplate) {
         if (!mCurrentOptionMode.equals(Const.MODE_BUILD)) {
             throw new ExcelRuntimeException(
-                    "请使用com.wuwenze.poi.ExcelTemplate.$Builder(Class<?> clazz, OutputStream outputStream)构造器初始化参数.");
+                    "请使用com.harry.base.excel.ExcelTemplate.$Builder(Class<?> clazz, OutputStream outputStream)构造器初始化参数.");
         }
         ExcelMapping excelMapping = ExcelMappingFactory.get(mClass);
         ExcelXlsxWriter excelXlsxWriter = new ExcelXlsxWriter(excelMapping,
@@ -128,7 +128,7 @@ public class ExcelTemplate {
                          ExcelReadHandler<?> excelReadHandler) {
         if (!mCurrentOptionMode.equals(Const.MODE_IMPORT)) {
             throw new ExcelRuntimeException(
-                    "请使用com.wuwenze.poi.ExcelTemplate.$Import(Class<?> clazz)构造器初始化参数.");
+                    "请使用com.harry.base.excel.ExcelTemplate.$Import(Class<?> clazz)构造器初始化参数.");
         }
         ExcelMapping excelMapping = ExcelMappingFactory.get(mClass);
         ExcelXlsxReader excelXlsxReader = new ExcelXlsxReader(mClass, excelMapping,

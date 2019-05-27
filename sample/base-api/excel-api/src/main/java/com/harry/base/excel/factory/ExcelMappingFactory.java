@@ -49,7 +49,7 @@ public class ExcelMappingFactory {
                                 }
                             });
     private final static List<String> mClazzFields = Lists
-            .newArrayList("options", "writeConverter", "readConverter", "validator");
+            .newArrayList("repository", "writeConverter", "readConverter", "validator");
     private final static List<String> mRequeridAttrs = Arrays.asList("name");
 
     /**
