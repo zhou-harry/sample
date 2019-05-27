@@ -33,7 +33,7 @@
         <dependency>
             <groupId>org.simplejavamail</groupId>
             <artifactId>simple-java-mail</artifactId>
-            <version>${mail}</version>
+            <version>${mail-version}</version>
         </dependency>
 
         <!-- 依赖 common API -->

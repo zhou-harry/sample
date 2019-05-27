@@ -18,10 +18,11 @@
         <module>auth-api</module>
         <module>database-api</module>
         <module>mail-server</module>
-        <module>common-api</module>
+        <module>base-api</module>
         <module>stream-output</module>
         <module>stream-input</module>
         <module>bus-server</module>
+        <module>sample-client</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -41,16 +42,21 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.M3</spring-cloud.version>
-        <mybatis-spring-boot>2.0.1</mybatis-spring-boot>
-        <mysql-connector>5.1.44</mysql-connector>
-        <druid>1.1.10</druid>
-        <pagehelper>1.2.3</pagehelper>
-        <log4j>1.2.17</log4j>
-        <spring-social>1.1.6.RELEASE</spring-social>
-        <janino>3.0.8</janino>
-        <mail>5.1.6</mail>
-        <commons-collections>3.2.2</commons-collections>
-        <security-oauth2>2.3.3.RELEASE</security-oauth2>
+        <mybatis-spring-boot-version>2.0.1</mybatis-spring-boot-version>
+        <mysql-connector-version>5.1.44</mysql-connector-version>
+        <druid-version>1.1.10</druid-version>
+        <pagehelper-version>1.2.3</pagehelper-version>
+        <log4j-version>1.2.17</log4j-version>
+        <spring-social-version>1.1.6.RELEASE</spring-social-version>
+        <janino-version>3.0.8</janino-version>
+        <mail-version>5.1.6</mail-version>
+        <commons-collections-version>3.2.2</commons-collections-version>
+        <commons-beanutils-version>1.9.3</commons-beanutils-version>
+        <security-oauth2-version>2.3.3.RELEASE</security-oauth2-version>
+        <dom4j-version>1.6.1</dom4j-version>
+        <poi-version>3.17</poi-version>
+        <guava-version>18.0</guava-version>
+        <xerces-version>2.11.0</xerces-version>
     </properties>
 
     <dependencyManagement>
@@ -94,7 +100,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>${log4j}</version>
+            <version>${log4j-version}</version>
         </dependency>
         <!--config-->
         <dependency>
@@ -131,7 +137,7 @@
         <dependency>
             <groupId>org.codehaus.janino</groupId>
             <artifactId>janino</artifactId>
-            <version>${janino}</version>
+            <version>${janino-version}</version>
         </dependency>
         <!-- Logging end -->
         <!-- 工具包 -->
@@ -142,7 +148,7 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>${commons-collections}</version>
+            <version>${commons-collections-version}</version>
         </dependency>
 
     </dependencies>
