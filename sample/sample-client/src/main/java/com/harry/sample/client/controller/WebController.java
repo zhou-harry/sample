@@ -1,4 +1,4 @@
-package com.harry.sso.client.controller;
+package com.harry.sample.client.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

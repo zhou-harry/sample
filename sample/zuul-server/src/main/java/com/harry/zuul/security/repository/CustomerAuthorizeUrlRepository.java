@@ -23,6 +23,7 @@ public class CustomerAuthorizeUrlRepository implements AuthorizeUrlRepository {
         Set<String> urls=new HashSet<>();
         urls.add("/index.html");
         urls.add("/user/*");
+        urls.add("/**");
 
         return urls;
     }
