@@ -234,18 +234,41 @@
                  5) "auth_to_access:920fdeaaff6e30750c009ef304061658"   
         ```
     - **JWT 管理token store**
-        ```sh
-             #请求后返回
-                 {
-                     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTg3MTIwOTQsInNpZ25pbmciOiJoYXJyeSIsInVzZXJfbmFtZSI6ImhhcnJ5IiwianRpIjoiYTc2N2NmNjEtNzg4MC00ZDg0LThlMjItMjUwYzk4ZTAyOTgxIiwiY2xpZW50X2lkIjoidXNlciIsInNjb3BlIjpbInVzZXJfaW5mbyJdfQ.ODKCYzG7PcqdqmWjS5KjYlhTrz8WBjXUI6LgqJZkAL0",
-                     "token_type": "bearer",
-                     "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJoYXJyeSIsInNjb3BlIjpbInVzZXJfaW5mbyJdLCJhdGkiOiJhNzY3Y2Y2MS03ODgwLTRkODQtOGUyMi0yNTBjOThlMDI5ODEiLCJleHAiOjE1NjEyNjA4OTQsInNpZ25pbmciOiJoYXJyeSIsImp0aSI6IjRhYTZlNTMyLTA4N2MtNGQ0Ny1iY2VmLTFhMWMyMGIxMGFjZCIsImNsaWVudF9pZCI6InVzZXIifQ.OpI1vscGcJlWa9oUHazL0H_kuyhGBbNumyM97OIDuO4",
-                     "expires_in": 43198,
-                     "scope": "user_info",
-                     "signing": "harry",
-                     "jti": "a767cf61-7880-4d84-8e22-250c98e02981"
-                 }   
-        ```
+    Oauth2.0官方文档：https://oauth.net/2/
+    
+    创建表：
+    ```sql
+    TDROP TABLE IF EXISTS `oauth_client_details`;
+    CREATE TABLE `oauth_client_details` (
+      `client_id` varchar(48) NOT NULL,
+      `resource_ids` varchar(256) DEFAULT NULL,
+      `client_secret` varchar(256) DEFAULT NULL,
+      `scope` varchar(256) DEFAULT NULL,
+      `authorized_grant_types` varchar(256) DEFAULT NULL,
+      `web_server_redirect_uri` varchar(256) DEFAULT NULL,
+      `authorities` varchar(256) DEFAULT NULL,
+      `access_token_validity` int(11) DEFAULT NULL,
+      `refresh_token_validity` int(11) DEFAULT NULL,
+      `additional_information` varchar(4096) DEFAULT NULL,
+      `autoapprove` varchar(256) DEFAULT NULL,
+      PRIMARY KEY (`client_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    --添加一条client记录（密码为：harry）,授权类型中如果没有加上：refresh_token则不会产生refresh_token的值
+    INSERT INTO oauth_client_details (client_id, client_secret, scope, authorized_grant_types, web_server_redirect_uri, autoapprove)
+    VALUES ('harry-client-id', '$2a$10$PFDpz98K3ROeSVImLkGhbe48OvF9oIvsheiPRzakIOzRs9nA3fjai', 'user_info', 'authorization_code,refresh_token', 'http://localhost:8083/login', 'user_info');
+  ```
+    ```sh
+         #请求后返回
+             {
+                 "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTg3MTIwOTQsInNpZ25pbmciOiJoYXJyeSIsInVzZXJfbmFtZSI6ImhhcnJ5IiwianRpIjoiYTc2N2NmNjEtNzg4MC00ZDg0LThlMjItMjUwYzk4ZTAyOTgxIiwiY2xpZW50X2lkIjoidXNlciIsInNjb3BlIjpbInVzZXJfaW5mbyJdfQ.ODKCYzG7PcqdqmWjS5KjYlhTrz8WBjXUI6LgqJZkAL0",
+                 "token_type": "bearer",
+                 "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJoYXJyeSIsInNjb3BlIjpbInVzZXJfaW5mbyJdLCJhdGkiOiJhNzY3Y2Y2MS03ODgwLTRkODQtOGUyMi0yNTBjOThlMDI5ODEiLCJleHAiOjE1NjEyNjA4OTQsInNpZ25pbmciOiJoYXJyeSIsImp0aSI6IjRhYTZlNTMyLTA4N2MtNGQ0Ny1iY2VmLTFhMWMyMGIxMGFjZCIsImNsaWVudF9pZCI6InVzZXIifQ.OpI1vscGcJlWa9oUHazL0H_kuyhGBbNumyM97OIDuO4",
+                 "expires_in": 43198,
+                 "scope": "user_info",
+                 "signing": "harry",
+                 "jti": "a767cf61-7880-4d84-8e22-250c98e02981"
+             }   
+    ```
     1. 图形验证码
     ```sh
         curl -X GET \
@@ -258,6 +281,12 @@
           'http://localhost/verifyCode/sms?mobile=17718376207' \
           -H 'deviceId: iphoneX'
     ```  
+    1. Authorization数据来源
+    ```java
+        String s = "client-id:client_secret";
+        byte[] encode = Base64.encode(s.getBytes("UTF-8"));
+        String authorization_basic = new String(encode, "UTF-8");
+    ```
     1. 表单认证(用户名/密码)
     ```sh
         #请求
