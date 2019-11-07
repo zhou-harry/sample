@@ -163,9 +163,10 @@ public class ExcelXlsxWriter {
             mHeaderCellStyle.setBorderBottom(BorderStyle.DOTTED);
             mHeaderCellStyle.setBorderLeft(BorderStyle.DOTTED);
             mHeaderCellStyle.setAlignment(HorizontalAlignment.LEFT);// 对齐
-            mHeaderCellStyle.setFillForegroundColor(HSSFColor.GREEN.index);
-            mHeaderCellStyle.setFillBackgroundColor(HSSFColor.GREEN.index);
+            mHeaderCellStyle.setFillForegroundColor(HSSFColor.GREY_40_PERCENT.index);
+            mHeaderCellStyle.setFillBackgroundColor(HSSFColor.GREY_40_PERCENT.index);
             font.setColor(HSSFColor.WHITE.index);
+            font.setBold(true);
             // 应用标题字体到标题样式
             mHeaderCellStyle.setFont(font);
             //设置单元格文本形式

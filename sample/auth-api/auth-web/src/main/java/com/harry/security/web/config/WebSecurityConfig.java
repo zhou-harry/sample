@@ -7,7 +7,6 @@ import com.harry.security.core.validate.code.ValidateCodeConfig;
 import com.harry.security.core.web.AbstractSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,7 +19,6 @@ import org.springframework.social.security.SpringSocialConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
-@Order(1)
 public class WebSecurityConfig extends AbstractSecurityConfig implements WebMvcConfigurer {
 
     @Value("server.servlet.session.cookie.name")
