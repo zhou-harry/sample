@@ -238,7 +238,7 @@
     
     创建表：
     ```sql
-    TDROP TABLE IF EXISTS `oauth_client_details`;
+    DROP TABLE IF EXISTS `oauth_client_details`;
     CREATE TABLE `oauth_client_details` (
       `client_id` varchar(48) NOT NULL,
       `resource_ids` varchar(256) DEFAULT NULL,
@@ -256,6 +256,20 @@
     --添加一条client记录（密码为：harry）,授权类型中如果没有加上：refresh_token则不会产生refresh_token的值
     INSERT INTO oauth_client_details (client_id, client_secret, scope, authorized_grant_types, web_server_redirect_uri, autoapprove)
     VALUES ('harry-client-id', '$2a$10$PFDpz98K3ROeSVImLkGhbe48OvF9oIvsheiPRzakIOzRs9nA3fjai', 'user_info', 'authorization_code,refresh_token', 'http://localhost:8083/login', 'user_info');
+    
+    create table t_UserConnection (userId varchar(255) not null,
+     providerId varchar(255) not null,
+     providerUserId varchar(255),
+    `rank` int not null,
+     displayName varchar(255),
+     profileUrl varchar(512),
+     imageUrl varchar(512),
+     accessToken varchar(512) not null,
+     secret varchar(512),
+     refreshToken varchar(512),
+     expireTime bigint,
+     primary key (userId, providerId, providerUserId));
+    create unique index UserConnectionRank on t_UserConnection(userId, providerId, `rank`);
   ```
     ```sh
          #请求后返回
