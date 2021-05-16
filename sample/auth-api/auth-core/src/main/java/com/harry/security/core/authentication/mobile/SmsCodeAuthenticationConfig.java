@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -41,6 +42,7 @@ public class SmsCodeAuthenticationConfig extends SecurityConfigurerAdapter<Defau
         );
 
         smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
+        smsCodeAuthenticationFilter.setRememberMeServices(http.getSharedObject(RememberMeServices.class));
         //设置认证失败/成功处理器
         smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         smsCodeAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
